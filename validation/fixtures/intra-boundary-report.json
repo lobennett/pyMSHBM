@@ -1,0 +1,28 @@
+{
+  "scope": "isolated intra_subject_var stage from deterministic surface smoke",
+  "settings": {
+    "num_sub": 1,
+    "num_session": 2,
+    "num_clusters": 15,
+    "dim": 1174,
+    "ini_concentration": 500,
+    "epsilon": 0.0001,
+    "conv_th": 1e-05,
+    "max_iter": 1
+  },
+  "diagnostic": {
+    "relative_sigma_change": -0.26666665911972565,
+    "converged": 1,
+    "iterations": 2.0,
+    "elapsed_seconds": 0.044156789779663086
+  },
+  "runtime": "GNU Octave 6.4.0",
+  "input_state_sha256": "ee2bd341ce12c2e1d32f431c7ee7b77f08b5f19b02e12800294306fab577f34d",
+  "fixture_sha256": "203ecbed7e3ffec10b98263f8b5df566f0cd24646c83ad8d6ac49031f9ffef8f",
+  "adapter_sha256": "77de1f7f25cfdaa0c8a79fe62eb4315bcd9bfad7017329c31c5f95b3bd3615c9",
+  "source_changes": [
+    "extracted intra_subject_var and helpers",
+    "added diagnostic guard at10000 iterations (not reached)",
+    "captured residual before assignment; converted loaded int settings to upstream double"
+  ]
+}

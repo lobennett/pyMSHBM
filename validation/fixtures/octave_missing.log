@@ -1,0 +1,238 @@
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/cbig_kernel.m' is in the future
+warning: called from
+    run_oracle_case at line 13 column 10
+
+warning: time stamp for '/work/pyMSHBM/validation/runtime/mtimesx.m' is in the future
+warning: called from
+    cbig_kernel at line 45 column 9
+    run_oracle_case at line 13 column 10
+
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 1 intra iteration 1..update s_psi and sigma..
+It is inter interation 1 intra iteration 2..update s_psi and sigma..
+It is inter interation 1 intra iteration 3..update s_psi and sigma..
+It is inter interation 1 intra iteration 4..update s_psi and sigma..
+It is inter interation 1 intra iteration 5..update s_psi and sigma..
+It is inter interation 1 intra iteration 6..update s_psi and sigma..
+It is inter interation 1 intra iteration 7..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 1 intra iteration 1..update s_psi and sigma..
+It is inter interation 1 intra iteration 2..update s_psi and sigma..
+It is inter interation 1 intra iteration 3..update s_psi and sigma..
+It is inter interation 1 intra iteration 4..update s_psi and sigma..
+It is inter interation 1 intra iteration 5..update s_psi and sigma..
+Inter-subject variability level ...
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 2 intra iteration 1..update s_psi and sigma..
+It is inter interation 2 intra iteration 2..update s_psi and sigma..
+It is inter interation 2 intra iteration 3..update s_psi and sigma..
+It is inter interation 2 intra iteration 4..update s_psi and sigma..
+It is inter interation 2 intra iteration 5..update s_psi and sigma..
+It is inter interation 2 intra iteration 6..update s_psi and sigma..
+It is inter interation 2 intra iteration 7..update s_psi and sigma..
+It is inter interation 2 intra iteration 8..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 2 intra iteration 1..update s_psi and sigma..
+It is inter interation 2 intra iteration 2..update s_psi and sigma..
+It is inter interation 2 intra iteration 3..update s_psi and sigma..
+It is inter interation 2 intra iteration 4..update s_psi and sigma..
+It is inter interation 2 intra iteration 5..update s_psi and sigma..
+It is inter interation 2 intra iteration 6..update s_psi and sigma..
+Inter-subject variability level ...
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 3 intra iteration 1..update s_psi and sigma..
+It is inter interation 3 intra iteration 2..update s_psi and sigma..
+It is inter interation 3 intra iteration 3..update s_psi and sigma..
+It is inter interation 3 intra iteration 4..update s_psi and sigma..
+It is inter interation 3 intra iteration 5..update s_psi and sigma..
+It is inter interation 3 intra iteration 6..update s_psi and sigma..
+It is inter interation 3 intra iteration 7..update s_psi and sigma..
+It is inter interation 3 intra iteration 8..update s_psi and sigma..
+It is inter interation 3 intra iteration 9..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 3 intra iteration 1..update s_psi and sigma..
+It is inter interation 3 intra iteration 2..update s_psi and sigma..
+It is inter interation 3 intra iteration 3..update s_psi and sigma..
+It is inter interation 3 intra iteration 4..update s_psi and sigma..
+It is inter interation 3 intra iteration 5..update s_psi and sigma..
+It is inter interation 3 intra iteration 6..update s_psi and sigma..
+Inter-subject variability level ...
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 4 intra iteration 1..update s_psi and sigma..
+It is inter interation 4 intra iteration 2..update s_psi and sigma..
+It is inter interation 4 intra iteration 3..update s_psi and sigma..
+It is inter interation 4 intra iteration 4..update s_psi and sigma..
+It is inter interation 4 intra iteration 5..update s_psi and sigma..
+It is inter interation 4 intra iteration 6..update s_psi and sigma..
+It is inter interation 4 intra iteration 7..update s_psi and sigma..
+It is inter interation 4 intra iteration 8..update s_psi and sigma..
+It is inter interation 4 intra iteration 9..update s_psi and sigma..
+It is inter interation 4 intra iteration 10..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 4 intra iteration 1..update s_psi and sigma..
+It is inter interation 4 intra iteration 2..update s_psi and sigma..
+It is inter interation 4 intra iteration 3..update s_psi and sigma..
+It is inter interation 4 intra iteration 4..update s_psi and sigma..
+It is inter interation 4 intra iteration 5..update s_psi and sigma..
+It is inter interation 4 intra iteration 6..update s_psi and sigma..
+It is inter interation 4 intra iteration 7..update s_psi and sigma..
+Inter-subject variability level ...
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 5 intra iteration 1..update s_psi and sigma..
+It is inter interation 5 intra iteration 2..update s_psi and sigma..
+It is inter interation 5 intra iteration 3..update s_psi and sigma..
+It is inter interation 5 intra iteration 4..update s_psi and sigma..
+It is inter interation 5 intra iteration 5..update s_psi and sigma..
+It is inter interation 5 intra iteration 6..update s_psi and sigma..
+It is inter interation 5 intra iteration 7..update s_psi and sigma..
+It is inter interation 5 intra iteration 8..update s_psi and sigma..
+It is inter interation 5 intra iteration 9..update s_psi and sigma..
+It is inter interation 5 intra iteration 10..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+It is EM iteration.. 2..
+M-step..
+[WARNING] kappa is less than the minimal value 500 
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 5 intra iteration 1..update s_psi and sigma..
+It is inter interation 5 intra iteration 2..update s_psi and sigma..
+It is inter interation 5 intra iteration 3..update s_psi and sigma..
+It is inter interation 5 intra iteration 4..update s_psi and sigma..
+It is inter interation 5 intra iteration 5..update s_psi and sigma..
+It is inter interation 5 intra iteration 6..update s_psi and sigma..
+It is inter interation 5 intra iteration 7..update s_psi and sigma..
+Inter-subject variability level ...
+ORACLE_VERSION=6.4.0

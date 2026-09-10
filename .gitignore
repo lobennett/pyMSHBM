@@ -8,3 +8,11 @@ wheels/
 
 # Virtual environments
 .venv
+.firecrawl/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.local-data/
+.superpowers/
+.DS_Store

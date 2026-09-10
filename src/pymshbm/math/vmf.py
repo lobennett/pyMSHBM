@@ -161,3 +161,17 @@ def vmf_log_probability(
         log_c = cdln(kappa, d)  # (L,)
     dot_product = X @ nu  # (N, L)
     return log_c[np.newaxis, :] + kappa[np.newaxis, :] * dot_product
+
+
+def cbig_inv_ad(d: int, rbar: float | np.ndarray) -> float | np.ndarray:
+    """Return the concentration used by the pinned CBIG group estimator.
+
+    Its ``invAd`` declares ``outu`` as the return variable, while root finding
+    assigns a different variable, ``out``. Consequently the executed estimator
+    returns this initial approximation even when root finding succeeds. Keep
+    the mathematical inverse utilities separate from this compatibility rule.
+    """
+    rbar = np.asarray(rbar, dtype=np.float64)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        result = (d - 1) * rbar / (1 - rbar ** 2) + d / (d - 1) * rbar
+    return float(result) if result.ndim == 0 else result

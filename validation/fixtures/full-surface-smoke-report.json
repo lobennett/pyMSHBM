@@ -1,0 +1,57 @@
+{
+  "scope": "full-size synthetic GIFTI input to Python wheel output; not a real-data or full MATLAB oracle",
+  "vertices": 81924,
+  "seeds": 1175,
+  "subjects": 1,
+  "runs": 2,
+  "timepoints_per_run": 40,
+  "generator_seed": 20260910,
+  "noise_scale": 1.0,
+  "software": {
+    "pymshbm": "0.2.0",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "nibabel": "5.4.2",
+    "python": "3.12.13"
+  },
+  "assets": {
+    "buckner_revision": "988ec48cf5453c6009a6f82dbddf5d5b99eda3cd",
+    "cbig_revision": "35b5664bec8822e2f77da5e090e96f91d0095be6",
+    "mesh": "fsaverage6",
+    "seed_mesh": "fsaverage3",
+    "files": {
+      "MSHBM_prior_15.mat": {
+        "source": "https://raw.githubusercontent.com/bucknerlab/PrecisionNetworkMapping/988ec48cf5453c6009a6f82dbddf5d5b99eda3cd/MSHBM/MSHBM_prior_15.mat",
+        "sha256": "16326e1367349a04ed7d81e16c855ad4fe0187af815d973e64d8d5d8ca47c4c3"
+      },
+      "ColorMap_15.txt": {
+        "source": "https://raw.githubusercontent.com/bucknerlab/PrecisionNetworkMapping/988ec48cf5453c6009a6f82dbddf5d5b99eda3cd/MSHBM/ColorMap_15.txt",
+        "sha256": "d6bdfdd7860a9f08e7d78f0b77996d80a31d59b1640814008164359fdef17d1e"
+      },
+      "lh.cortex.label": {
+        "source": "/Users/lobennett/grants/dbp/pyMSHBM/.local-data/freesurfer/fsaverage6/label/lh.cortex.label",
+        "sha256": "9e6a73805f211f2f8a0b31c1e22634c3e95c45488c792cffce8c2b0b6930b091"
+      },
+      "rh.cortex.label": {
+        "source": "/Users/lobennett/grants/dbp/pyMSHBM/.local-data/freesurfer/fsaverage6/label/rh.cortex.label",
+        "sha256": "a3b121712f4dd8dae8ed55558374667af5fe461d75a99a99313a8dbfbe4db3b7"
+      }
+    }
+  },
+  "fit": {
+    "iterations": 5,
+    "objective_history": [
+      629391744.0,
+      629367936.0,
+      629360064.0,
+      629352192.0,
+      629348288.0
+    ],
+    "reached_iteration_limit": true,
+    "relative_cost_change": 6.2032039446682345e-06,
+    "converged": true,
+    "stop_reason": "relative_cost"
+  },
+  "status": "passed",
+  "command": "pymshbm bids INPUT OUTPUT --assets-dir ASSETS"
+}

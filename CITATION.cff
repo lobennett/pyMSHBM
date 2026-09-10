@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "Please cite the MS-HBM method, DU15NET publication, CBIG, and the Python implementations described in README.md."
+title: "pyMSHBM: BIDS-friendly Multi-Session Hierarchical Bayesian Model"
+type: software
+authors:
+  - family-names: Poldrack
+    given-names: Russell
+  - family-names: Bennett
+    given-names: Logan
+version: 0.2.0
+repository-code: "https://github.com/lobennett/pyMSHBM"
+license: MIT

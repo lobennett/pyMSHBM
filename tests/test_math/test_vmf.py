@@ -188,3 +188,14 @@ class TestVmfLogProbability:
         kappa = np.full(L, 50.0)
         result = vmf_log_probability(X, nu, kappa)
         assert np.all(np.isfinite(result))
+
+
+def test_cbig_inverse_returns_literal_upstream_initial_approximation():
+    # CBIG's MATLAB function declares outu as output but root finding writes out.
+    import pymshbm.math.vmf as vmf
+    reference_inverse = getattr(vmf, 'cbig_inv_ad', None)
+    assert reference_inverse is not None
+    values = np.array([0.0, 0.5, 0.9, 1.0])
+    with np.errstate(divide='ignore'):
+        expected = 19 * values / (1 - values ** 2) + 20 / 19 * values
+    np.testing.assert_array_equal(reference_inverse(20, values), expected)

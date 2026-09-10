@@ -1,0 +1,11 @@
+{
+  "reference_runtime": "GNU Octave 6.4.0",
+  "octave_debian_package": "6.4.0-2",
+  "blas_debian_package": "libblas3:amd64 3.10.0-2ubuntu1",
+  "container_image": "docker.io/library/ubuntu:22.04",
+  "image_digest": "sha256:ce941a2a18bbb922e434d6d6d2b31e571a5c3826eaf6ada0a41dcc905bd2d906",
+  "image_architecture": "amd64",
+  "execution_host": "Apple Silicon macOS via Podman emulation",
+  "python_comparison": "Python 3.14.5, NumPy 2.5.3",
+  "reference_scope": "synthetic array kernels and one isolated synthetic intra-subject stage; no human-data end-to-end comparison"
+}

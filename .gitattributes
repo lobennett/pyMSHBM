@@ -1,0 +1,4 @@
+# Preserve reference-source bytes and raw execution logs for checksum verification.
+validation/upstream/** -text -whitespace
+validation/runtime/*.m -text -whitespace
+validation/fixtures/*.log -text -whitespace

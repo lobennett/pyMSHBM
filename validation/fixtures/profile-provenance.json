@@ -1,0 +1,23 @@
+{
+  "scope": "synthetic array kernels: correlation, global 10% binarization, profile normalization, label-based centroids",
+  "cbig_revision": "35b5664bec8822e2f77da5e090e96f91d0095be6",
+  "runtime": "GNU Octave 6.4.0",
+  "seed": 97620,
+  "source_changes": [
+    "replace mesh and file I/O with deterministic arrays and supplied cortex masks",
+    "extract single-run no-splitting branch and pass fixed threshold 0.1",
+    "replace profile MRI read with supplied single array for normalization and double array for centroids"
+  ],
+  "sha256": {
+    "runtime/profile_oracle.m": "4a6c4a6e63104d3ff7753ea500c493c66c1ce18919d15058dbf36f27f6170fc6",
+    "fixtures/cbig_profiles.npz": "fc4756d2561dbe1d7f641a1d5b64c49cd1629b907cedc3b7ccccdacb49a8a66e",
+    "upstream/CBIG_ComputeCorrelationProfile.m": "2c71f43d67c2db3194298bc0f65b5371c0cd28bed76f6a1ea67f456a03ed72e8",
+    "upstream/CBIG_IndCBM_generate_MSHBM_params.m": "40d66efd09b5c90dd0cde2e8be02395a93938dc9b0a6ebf74d11e8f09041e36d",
+    "upstream/CBIG_MSHBM_estimate_group_priors.m": "aa4814b1f1b43fae577a57dfe2a4106e1e34adafa6d535458b466bb7c3b629d6",
+    "upstream/CBIG_corr.m": "cd1e5df5bfaabbd66e524e3cdc697ba803d9f70d702fa534ca6388956e8d7bff",
+    "upstream/CBIG_nanmean.m": "e0ca3ee5bf666f6c3ba74602faafee72e3c4109c124ec553780a6ca159f69a08",
+    "upstream/CBIG_nansum.m": "3f15e52aaa11982b807ef27969f84ee951591496c2f718dff484b6485c2f8e7f",
+    "upstream/LICENSE-CBIG.md": "0e38f0e8b304f13de2ce2911320faaa08ced178e031d3bbebc3e4769762e5f50",
+    "upstream/mtimesx_upstream.c": "f33b680a4909f6c6b5b3f24edb7ce473061619ce7bf7123960bd1e9cd1651f82"
+  }
+}

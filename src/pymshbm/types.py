@@ -18,7 +18,7 @@ class FileFormat(Enum):
 
 @dataclass
 class MSHBMParams:
-    """Parameters for the Multi-Scale Hierarchical Bayesian Model.
+    """Parameters for the Multi-Session Hierarchical Bayesian Model.
 
     Attributes:
         mu: Group-level connectivity profiles (D x L).
@@ -43,6 +43,9 @@ class MSHBMParams:
     s_lambda: NDArray[np.floating] | None = None
     iter_inter: int = 0
     record: list[float] = field(default_factory=list)
+    cost_em: NDArray[np.floating] | None = None
+    cost_intra: float = 0.0
+    cost_inter: float = 0.0
 
 
 @dataclass

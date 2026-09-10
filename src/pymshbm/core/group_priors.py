@@ -10,7 +10,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
 
-from pymshbm.math.vmf import ad, cdln, inv_ad, inv_ad_batch, vmf_log_probability
+from pymshbm.math.vmf import cbig_inv_ad, cdln
 from pymshbm.types import MSHBMParams
 
 logger = logging.getLogger(__name__)
@@ -56,74 +56,100 @@ def _weighted_data_subject_worker(s, s_lambda_s, T):
     data = _worker_data
     D = data.shape[1]
     L = s_lambda_s.shape[1]
-    result = np.empty((D, L, T), dtype=np.float64)
+    result = np.empty((D, L, T), dtype=np.float32)
     for t in range(T):
-        result[:, :, t] = data[:, :, s, t].T @ s_lambda_s
+        result[:, :, t] = data[:, :, s, t].astype(np.float32).T @ s_lambda_s
     return s, result
 
 
 def _kappa_subject_worker(s, s_lambda_s, s_t_nu_s, T):
     """Worker: compute kappa numerator partial sum for one subject."""
     data = _worker_data
-    partial = 0.0
-    for t in range(T):
-        dot_st = data[:, :, s, t] @ s_t_nu_s[:, :, t]
-        partial += np.nansum(s_lambda_s * dot_st)
-    return partial
+    return _kappa_subject(data[:, :, s, :], s_lambda_s, s_t_nu_s)
+
+
+def _kappa_subject(data_s, sl, nu_s):
+    values = np.stack([
+        np.sum(sl * _profile_dot(data_s[:, :, t], nu_s[:, :, t]).astype(np.float32), axis=0)
+        for t in range(data_s.shape[2])
+    ], axis=1)
+    counts = np.sum(~np.isnan(values), axis=1)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        return np.nansum(values, axis=1) / counts.astype(np.float32)
 
 
 def _e_step_subject_worker(s, s_t_nu_s, kappa, log_c, theta, N, L, T):
-    """Worker: compute E-step for one subject."""
-    data = _worker_data
-    log_vmf_total = np.zeros((N, L))
+    """Worker: literal CBIG E-step, including zero dot-product masking."""
+    return (s, *_e_step_subject(_worker_data[:, :, s, :], s_t_nu_s,
+                               kappa, log_c, theta))
+
+
+def _e_step_subject(data_s, nu_s, kappa, log_c, theta):
+    N, _, T = data_s.shape
+    L = len(kappa)
+    dtype = np.float32 if data_s.dtype == np.float32 or nu_s.dtype == np.float32 else np.float64
+    log_vmf_total = np.zeros((N, L), dtype=dtype)
     for t in range(T):
-        X = data[:, :, s, t]
-        nu = s_t_nu_s[:, :, t]
-        log_vmf = vmf_log_probability(X, nu, kappa, log_c=log_c)
-        log_vmf_total += np.nan_to_num(log_vmf, nan=0.0)
-
-    log_theta = np.log(np.maximum(theta, np.finfo(float).tiny))
-    log_posterior = log_vmf_total + log_theta
-    log_posterior -= log_posterior.max(axis=1, keepdims=True)
-    s_lambda = np.exp(log_posterior)
-    row_sums = s_lambda.sum(axis=1, keepdims=True)
-    row_sums[row_sums == 0] = 1.0
-    s_lambda /= row_sums
-
-    zero_mask = np.all(log_vmf_total == 0, axis=1)
-    s_lambda[zero_mask] = 0.0
-
-    return s, s_lambda, log_vmf_total
+        lv = _profile_dot(data_s[:, :, t], nu_s[:, :, t]) * kappa.astype(dtype)
+        add_constant = np.all(lv != 0, axis=1)
+        lv[add_constant] = lv[add_constant].astype(np.float32) + log_c
+        log_vmf_total += np.where(np.isnan(lv), 0, lv)
+    zero_mask = np.any(log_vmf_total == 0, axis=1)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        posterior = log_vmf_total.astype(np.float32) + np.log(theta)
+        posterior -= posterior.max(axis=1, keepdims=True)
+        sl = np.exp(posterior)
+        sl /= sl.sum(axis=1, keepdims=True)
+    sl[zero_mask] = 0.0
+    return sl, log_vmf_total
 
 
 def _em_cost_subject_worker(s, s_lambda_s, s_t_nu_s, kappa, log_c,
                             log_theta, L, T):
     """Worker: compute EM cost for one subject."""
-    data = _worker_data
-    N = data.shape[0]
-    log_vmf_total = np.zeros((N, L))
-    for t in range(T):
-        X = data[:, :, s, t]
-        nu = s_t_nu_s[:, :, t]
-        lv = vmf_log_probability(X, nu, kappa, log_c=log_c)
-        log_vmf_total += np.nan_to_num(lv, nan=0.0)
-
-    log_sl = np.log(np.maximum(s_lambda_s, np.finfo(float).tiny))
-    cost = (np.nansum(s_lambda_s * log_vmf_total)
-            + np.nansum(s_lambda_s * log_theta)
-            - np.nansum(s_lambda_s * log_sl))
+    cost = _em_cost_subject(_worker_data[:, :, s, :], s_lambda_s,
+                            s_t_nu_s, kappa, log_c, log_theta)
     return s, cost
+
+
+def _log_for_cost(values):
+    with np.errstate(divide="ignore", invalid="ignore"):
+        result = np.log(values)
+    return np.where(np.isinf(result), np.log(np.finfo(float).eps ** 20), result)
+
+
+def _profile_dot(X, nu):
+    # Both MATLAB mtimes and pinned mtimesx cast the double operand to single
+    # BEFORE multiplication whenever either non-scalar operand is single.
+    if X.dtype == np.float32 or nu.dtype == np.float32:
+        return X.astype(np.float32, copy=False) @ nu.astype(np.float32, copy=False)
+    return X @ nu
+
+
+def _reference_log_probability(X, nu, kappa, log_c):
+    # MATLAB single Cdln dominates the mixed-precision addition.
+    dot = _profile_dot(X, nu)
+    return (kappa.astype(dot.dtype) * dot).astype(np.float32) + log_c
+
+
+def _em_cost_subject(data_s, sl, nu_s, kappa, log_c, log_theta):
+    total = _reference_log_probability(data_s[:, :, 0], nu_s[:, :, 0], kappa, log_c)
+    for t in range(1, data_s.shape[2]):
+        lv = _reference_log_probability(data_s[:, :, t], nu_s[:, :, t], kappa, log_c)
+        total = np.nansum(np.stack((total, lv), axis=2), axis=2)
+    return (np.sum(sl * total) + np.sum(sl * log_theta)
+            - np.sum(sl * _log_for_cost(sl)))
 
 
 def _initial_s_lambda_subject_worker(s, s_t_nu_s, kappa, log_c, N, L, T):
     """Worker: compute initial s_lambda for one subject."""
     data = _worker_data
-    log_vmf_total = np.zeros((N, L))
+    log_vmf_total = np.zeros((N, L), dtype=np.float32)
     for t in range(T):
         X = data[:, :, s, t]
         nu = s_t_nu_s[:, :, t]
-        lv = vmf_log_probability(X, nu, kappa, log_c=log_c)
-        log_vmf_total += np.nan_to_num(lv, nan=0.0)
+        lv = _reference_log_probability(X, nu, kappa, log_c)
+        log_vmf_total += np.where(np.isnan(lv), 0.0, lv)
 
     log_vmf_total -= log_vmf_total.max(axis=1, keepdims=True)
     sl = np.exp(log_vmf_total)
@@ -151,7 +177,9 @@ def estimate_group_priors(
         data: (N, D, S, T) normalized FC profiles.
         g_mu: (D, L) group-level cluster centroids.
         settings: Dict with keys: num_sub, num_session, num_clusters,
-                  dim, ini_concentration, epsilon, conv_th, max_iter.
+                  dim (D-1), ini_concentration, epsilon, conv_th, max_iter.
+                  Optional numerical_max_iter (default 10000) raises if the
+                  reference's uncapped M-step or intra update fails to converge.
 
     Returns:
         MSHBMParams with estimated group priors.
@@ -178,23 +206,25 @@ def estimate_group_priors(
                                    dtype=np.float64)
             params.s_psi = np.tile(g_mu[:, :, np.newaxis], (1, 1, S))
 
-            # Inner EM: session-level clustering + intra-subject
-            logger.debug("  Outer iter %d/%d: session-level vMF clustering",
-                         iteration, settings["max_iter"])
-            params = vmf_clustering_subject_session(
-                params, settings, data, pool=pool)
-            logger.debug("  Outer iter %d/%d: intra-subject variability",
-                         iteration, settings["max_iter"])
-            params = intra_subject_var(params, settings)
-
-            # Inter-subject variability
-            logger.debug("  Outer iter %d/%d: inter-subject variability",
-                         iteration, settings["max_iter"])
+            # The reference alternates session clustering and intra-subject
+            # fitting to convergence before each inter-subject update.
+            intra_cost = 0.0
+            for intra_em in range(1, 51):
+                params.kappa = np.full(L, settings["ini_concentration"], dtype=float)
+                params.s_t_nu = np.tile(g_mu[:, :, None, None], (1, 1, T, S))
+                params = vmf_clustering_subject_session(params, settings, data, pool=pool)
+                params = intra_subject_var(params, settings)
+                update_cost = _compute_inter_cost(params, settings, data, pool=pool)
+                with np.errstate(divide="ignore", invalid="ignore"):
+                    change = np.abs(np.divide(update_cost - intra_cost, intra_cost))
+                intra_cost = update_cost
+                if change <= settings["epsilon"] or intra_em >= 50:
+                    break
+            params.cost_intra = float(intra_cost)
             params = inter_subject_var(params, settings)
-
-            # Compute cost
-            update_cost = _compute_inter_cost(
-                params, settings, data, pool=pool)
+            # Upstream records the cost BEFORE the inter-subject update.
+            update_cost = params.cost_intra
+            params.cost_inter = update_cost
             record.append(float(update_cost))
 
             if iteration > 1 and abs(cost_inter) > 0:
@@ -287,12 +317,10 @@ def vmf_clustering_subject_session(
         Updated MSHBMParams.
     """
     N, D, S, T = data.shape
-    L = settings["num_clusters"]
-    dim = settings["dim"]
     epsilon = settings["epsilon"]
     c0 = settings["ini_concentration"]
 
-    cost = np.zeros(S)
+    cost = np.zeros(S, dtype=np.float32)
 
     for iter_em in range(1, 102):
         # M-step: update kappa and s_t_nu
@@ -303,23 +331,20 @@ def vmf_clustering_subject_session(
         _m_step(params, settings, data, epsilon, c0,
                 weighted_data=weighted_data, pool=pool)
 
-        # E-step: update s_lambda and theta; cache log-likelihoods
-        log_vmf_cache = _e_step(params, settings, data, pool=pool)
+        # E-step and reference stopping cost use distinct masking rules.
+        _e_step(params, settings, data, pool=pool)
 
-        # Check convergence (reuse cached log-likelihoods)
-        update_cost = _compute_em_cost(params, settings, data,
-                                       log_vmf_cache=log_vmf_cache)
+        # Check convergence using the separately normalized cost likelihood.
+        update_cost = _compute_em_cost(params, settings, data, pool=pool)
         with np.errstate(divide="ignore", invalid="ignore"):
-            converged = np.where(
-                np.abs(cost) > 0,
-                np.abs((update_cost - cost) / cost) <= epsilon,
-                False,
-            )
-        if np.all(converged) and iter_em > 1:
-            logger.debug("    Inner EM converged at iteration %d", iter_em)
+            # MATLAB uses (relative_change > epsilon) == 0; NaN compares false.
+            converged = ~(np.abs((update_cost - cost) / cost) > epsilon)
+        if np.all(converged):
+            params.cost_em = cost.copy()
             break
         if iter_em > 100:
-            logger.debug("    Inner EM reached max iterations (100)")
+            params.cost_em = update_cost.copy()
+            logger.warning("Inner EM reached reference iteration limit (101)")
             break
         cost = update_cost
 
@@ -340,9 +365,9 @@ def _compute_weighted_data(
     Uses explicit BLAS matmuls per (s,t) slice for guaranteed GEMM dispatch.
     Result shape: (D, L, S, T).
     """
-    N, D = data.shape[0], data.shape[1]
+    D = data.shape[1]
     L = s_lambda.shape[1]
-    result = np.empty((D, L, S, T), dtype=np.float64)
+    result = np.empty((D, L, S, T), dtype=np.float32)
 
     if pool is not None:
         futures = [
@@ -358,7 +383,7 @@ def _compute_weighted_data(
             sl = s_lambda[:, :, s]  # (N, L)
             for t in range(T):
                 # (D, N) @ (N, L) -> (D, L)
-                result[:, :, s, t] = data[:, :, s, t].T @ sl
+                result[:, :, s, t] = data[:, :, s, t].astype(np.float32).T @ sl
 
     return result
 
@@ -387,7 +412,8 @@ def _m_step(
         weighted_data = _compute_weighted_data(
             data, params.s_lambda, S, T, pool=pool)
 
-    for _ in range(50):  # Max M-step iterations
+    flag_nu = np.zeros((T, S), dtype=bool)
+    for _ in range(settings.get("numerical_max_iter", 10000)):
         # Update kappa — accumulate directly without (N,L,S,T) intermediate
         if pool is not None:
             futures = [
@@ -396,20 +422,21 @@ def _m_step(
                             params.s_t_nu[:, :, :, s], T)
                 for s in range(S)
             ]
-            kappa_num = sum(f.result() for f in futures)
+            kappa_parts = [f.result() for f in futures]
         else:
-            kappa_num = 0.0
-            for s in range(S):
-                sl = params.s_lambda[:, :, s]  # (N, L)
-                for t in range(T):
-                    dot_st = (data[:, :, s, t]
-                              @ params.s_t_nu[:, :, t, s])  # (N, L)
-                    kappa_num += np.nansum(sl * dot_st)
-        kappa_den = np.nansum(params.s_lambda)
+            kappa_parts = [
+                _kappa_subject(data[:, :, s, :], params.s_lambda[:, :, s],
+                               params.s_t_nu[:, :, :, s])
+                for s in range(S)]
+        kappa_num = np.sum(np.sum(np.stack(kappa_parts, axis=1), axis=1))
+        kappa_den = np.sum(np.sum(np.sum(params.s_lambda, axis=0), axis=1))
 
+        if not np.isfinite(kappa_den) or kappa_den <= 0:
+            raise ValueError("Group estimation has no finite assigned vertices")
+        old_kappa = params.kappa.copy()
         if kappa_den > 0:
             rbar = kappa_num / kappa_den
-            kappa_new = inv_ad(dim, min(max(rbar, 1e-10), 1 - 1e-10))
+            kappa_new = cbig_inv_ad(dim, rbar)
             kappa_new = max(kappa_new, c0)
             if np.isinf(kappa_new):
                 kappa_new = params.kappa[0]
@@ -419,24 +446,28 @@ def _m_step(
         # lambda_X[d,l,t,s] = kappa * weighted_data[d,l,s,t]
         #                     + sigma * s_psi[d,l,s]
         lambda_X = (
-            params.kappa[np.newaxis, :, np.newaxis, np.newaxis]
+            params.kappa.astype(np.float32)[np.newaxis, :, np.newaxis, np.newaxis]
             * weighted_data.transpose(0, 1, 3, 2)  # (D, L, T, S)
-            + params.sigma[np.newaxis, :, np.newaxis, np.newaxis]
-            * params.s_psi[:, :, np.newaxis, :]  # (D, L, 1, S) -> T
+            + (params.sigma[np.newaxis, :, np.newaxis, np.newaxis]
+            * params.s_psi[:, :, np.newaxis, :]).astype(np.float32)  # (D, L, 1, S) -> T
         )
         norms = np.linalg.norm(lambda_X, axis=0, keepdims=True)
         norms[norms == 0] = 1.0
         nu_new = lambda_X / norms
 
         # Convergence check: cosine similarity between old and new
-        cos_sim = np.sum(nu_new * params.s_t_nu, axis=0)  # (L, T, S)
+        cos_sim = np.sum(nu_new * params.s_t_nu.astype(np.float32), axis=0)  # (L, T, S)
         cos_sim = np.where(np.isnan(cos_sim), 1.0, cos_sim)
-        all_converged = np.all(1 - cos_sim < epsilon)
+        flag_nu |= np.all(1 - cos_sim < epsilon, axis=0)
+        all_converged = (np.all(flag_nu) and
+                         np.mean(np.abs(old_kappa - params.kappa) / old_kappa) < epsilon)
 
-        params.s_t_nu = nu_new
+        params.s_t_nu[...] = nu_new
 
         if all_converged:
             break
+    else:
+        raise RuntimeError("CBIG M-step did not converge within numerical_max_iter")
 
 
 def _e_step(
@@ -448,7 +479,8 @@ def _e_step(
     """E-step: update s_lambda and theta.
 
     Returns:
-        List of per-subject (N, L) accumulated log-vmf arrays for cost reuse.
+        List of per-subject (N, L) accumulated E-step log-vmf arrays.
+        These are not interchangeable with the reference stopping likelihood.
     """
     N, D, S, T = data.shape
     L = settings["num_clusters"]
@@ -472,35 +504,13 @@ def _e_step(
     else:
         log_vmf_cache = []
         for s in range(S):
-            log_vmf_total = np.zeros((N, L))
-            for t in range(T):
-                X = data[:, :, s, t]  # (N, D)
-                nu = params.s_t_nu[:, :, t, s]  # (D, L)
-                log_vmf = vmf_log_probability(
-                    X, nu, params.kappa, log_c=log_c)
-                log_vmf_total += np.nan_to_num(log_vmf, nan=0.0)
-
+            sl, log_vmf_total = _e_step_subject(
+                data[:, :, s, :], params.s_t_nu[:, :, :, s],
+                params.kappa, log_c, params.theta)
+            params.s_lambda[:, :, s] = sl
             log_vmf_cache.append(log_vmf_total)
 
-            # Add log theta prior
-            log_theta = np.log(
-                np.maximum(params.theta, np.finfo(float).tiny))
-            log_posterior = log_vmf_total + log_theta
-
-            # Softmax for numerical stability
-            log_posterior -= log_posterior.max(axis=1, keepdims=True)
-            s_lambda = np.exp(log_posterior)
-            row_sums = s_lambda.sum(axis=1, keepdims=True)
-            row_sums[row_sums == 0] = 1.0
-            s_lambda /= row_sums
-
-            # Mask zero rows (medial wall)
-            zero_mask = np.all(log_vmf_total == 0, axis=1)
-            s_lambda[zero_mask] = 0.0
-
-            params.s_lambda[:, :, s] = s_lambda
-
-    params.theta = _compute_theta(params.s_lambda)
+    params.theta = params.s_lambda.mean(axis=2)
     return log_vmf_cache
 
 
@@ -510,16 +520,15 @@ def intra_subject_var(
 ) -> MSHBMParams:
     """Update s_psi and sigma (intra-subject variability level)."""
     S = settings["num_sub"]
-    T = settings["num_session"]
-    L = settings["num_clusters"]
     dim = settings["dim"]
     epsilon = settings["epsilon"]
 
-    for intra_iter in range(1, 51):
+    flag_psi = np.zeros(S, dtype=bool)
+    for intra_iter in range(1, settings.get("numerical_max_iter", 10000) + 1):
         # Update s_psi — vectorized over S
         # s_t_nu: (D, L, T, S), sum over T -> (D, L, S)
         accum = (
-            params.sigma[np.newaxis, :, np.newaxis] * params.s_t_nu.sum(axis=2)
+            np.nansum(params.sigma[np.newaxis, :, None, None] * params.s_t_nu, axis=2)
             + params.epsil[np.newaxis, :, np.newaxis]
             * params.mu[:, :, np.newaxis]
         )
@@ -529,24 +538,32 @@ def intra_subject_var(
 
         # Convergence check — vectorized
         cos_sim = np.sum(s_psi_new * params.s_psi, axis=0)  # (L, S)
-        all_converged = np.all(1 - cos_sim < epsilon)
+        flag_psi |= np.all(1 - cos_sim < epsilon, axis=0)
+        all_converged = np.all(flag_psi)
         params.s_psi = s_psi_new
 
-        # Update sigma — vectorized with einsum + batch inv_ad
-        # rbar[l] = mean over (s,t) of dot(s_psi[:,l,s], s_t_nu[:,l,t,s])
-        rbar_all = np.einsum(
-            "dls,dlts->l", params.s_psi, params.s_t_nu) / (S * T)
-        rbar_clamped = np.clip(rbar_all, 1e-10, 1 - 1e-10)
-        sigma_new = inv_ad_batch(dim, rbar_clamped)
+        # Update sigma using the executed CBIG concentration approximation.
+        # Preserve upstream order: ordinary subject mean, THEN NaN session
+        # mean. A session missing for any subject is excluded at this stage.
+        dots = np.sum(params.s_psi[:, :, None, :] * params.s_t_nu, axis=0)
+        subject_mean = np.mean(dots, axis=2)
+        counts = np.sum(~np.isnan(subject_mean), axis=1)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            rbar_all = np.nansum(subject_mean, axis=1) / counts
+        sigma_new = cbig_inv_ad(dim, rbar_all)
 
-        sigma_converged = (
-            np.mean(np.abs(params.sigma - sigma_new)
-                    / np.maximum(params.sigma, 1e-10)) < epsilon
-        )
+        # Preserve the signed denominator: quantized session directions can
+        # transiently yield negative sigma in the literal upstream algorithm.
+        with np.errstate(divide="ignore", invalid="ignore"):
+            sigma_converged = (
+                np.mean(np.abs(params.sigma - sigma_new) / params.sigma) < epsilon
+            )
         if all_converged and sigma_converged:
             params.sigma = sigma_new
             break
         params.sigma = sigma_new
+    else:
+        raise RuntimeError("CBIG intra-subject update did not converge within numerical_max_iter")
 
     logger.debug("    Intra-subject: %d iterations, "
                  "sigma=[%s]", intra_iter,
@@ -560,7 +577,6 @@ def inter_subject_var(
 ) -> MSHBMParams:
     """Update mu and epsil (inter-subject variability level)."""
     S = settings["num_sub"]
-    L = settings["num_clusters"]
     dim = settings["dim"]
     c0 = settings["ini_concentration"]
 
@@ -570,10 +586,9 @@ def inter_subject_var(
     norms[norms == 0] = 1.0
     params.mu = mu_update / norms
 
-    # Update epsil — vectorized with einsum + batch inv_ad
+    # Update epsil using the executed CBIG concentration approximation
     rbar_all = np.einsum("dls,dl->l", params.s_psi, params.mu) / S
-    rbar_clamped = np.clip(rbar_all, 1e-10, 1 - 1e-10)
-    epsil_new = inv_ad_batch(dim, rbar_clamped)
+    epsil_new = cbig_inv_ad(dim, rbar_all)
     epsil_new = np.maximum(epsil_new, c0)
     # Keep old values where result is inf
     inf_mask = np.isinf(epsil_new)
@@ -593,7 +608,7 @@ def _compute_initial_s_lambda(
 ) -> np.ndarray:
     """Compute initial s_lambda from vMF log likelihoods."""
     N, D, S, T = data.shape
-    s_lambda = np.zeros((N, L, S))
+    s_lambda = np.zeros((N, L, S), dtype=np.float32)
     log_c = cdln(kappa, dim)
 
     if pool is not None:
@@ -607,12 +622,12 @@ def _compute_initial_s_lambda(
             s_lambda[:, :, s] = sl
     else:
         for s in range(S):
-            log_vmf_total = np.zeros((N, L))
+            log_vmf_total = np.zeros((N, L), dtype=np.float32)
             for t in range(T):
                 X = data[:, :, s, t]
                 nu = s_t_nu[:, :, t, s]
-                lv = vmf_log_probability(X, nu, kappa, log_c=log_c)
-                log_vmf_total += np.nan_to_num(lv, nan=0.0)
+                lv = _reference_log_probability(X, nu, kappa, log_c)
+                log_vmf_total += np.where(np.isnan(lv), 0.0, lv)
 
             log_vmf_total -= log_vmf_total.max(axis=1, keepdims=True)
             sl = np.exp(log_vmf_total)
@@ -628,9 +643,12 @@ def _compute_initial_s_lambda(
 
 
 def _compute_theta(s_lambda: np.ndarray) -> np.ndarray:
-    """Compute theta as mean of s_lambda across subjects, handling zeros."""
+    """Reference initialization: subject mean divided by nonzero subject count.
+
+    Subsequent E-steps use an ordinary subject mean instead.
+    """
     nonzero_count = np.sum(s_lambda != 0, axis=2)
-    theta_sum = s_lambda.sum(axis=2)
+    theta_sum = s_lambda.mean(axis=2)
     theta = np.zeros_like(theta_sum)
     mask = nonzero_count > 0
     theta[mask] = theta_sum[mask] / nonzero_count[mask]
@@ -647,54 +665,30 @@ def _compute_em_cost(
     """Compute per-subject EM cost.
 
     Args:
-        log_vmf_cache: Optional precomputed per-subject (N, L) log-vmf arrays
-            from _e_step. When provided, skips redundant vmf_log_probability
-            recomputation.
+        log_vmf_cache: Retained for API compatibility but ignored: the
+            E-step has different masking rules from the stopping cost.
         pool: Optional ProcessPoolExecutor for parallel computation.
     """
     N, D, S, T = data.shape
-    costs = np.zeros(S)
-    log_theta = np.log(np.maximum(params.theta, np.finfo(float).tiny))
-
-    if log_vmf_cache is not None:
-        # Use cached values — no data access needed, skip parallel
-        for s in range(S):
-            log_vmf_total = log_vmf_cache[s]
-            sl = params.s_lambda[:, :, s]
-            log_sl = np.log(np.maximum(sl, np.finfo(float).tiny))
-            costs[s] = (np.nansum(sl * log_vmf_total)
-                        + np.nansum(sl * log_theta)
-                        - np.nansum(sl * log_sl))
-    elif pool is not None:
-        log_c = cdln(params.kappa, settings["dim"])
+    costs = np.zeros(S, dtype=np.float32)
+    log_theta = _log_for_cost(params.theta)
+    log_c = cdln(params.kappa, settings["dim"])
+    # E-step cache uses different zero-row/NaN rules from the reference cost;
+    # retain the argument for compatibility, but recompute the cost likelihood.
+    if pool is not None:
         futures = [
-            pool.submit(_em_cost_subject_worker,
-                        s, params.s_lambda[:, :, s],
-                        params.s_t_nu[:, :, :, s],
-                        params.kappa, log_c, log_theta,
-                        settings["num_clusters"], T)
+            pool.submit(_em_cost_subject_worker, s, params.s_lambda[:, :, s],
+                        params.s_t_nu[:, :, :, s], params.kappa, log_c,
+                        log_theta, settings["num_clusters"], T)
             for s in range(S)
         ]
         for future in futures:
-            s, cost = future.result()
-            costs[s] = cost
+            s, costs[s] = future.result()
     else:
-        log_c = cdln(params.kappa, settings["dim"])
         for s in range(S):
-            log_vmf_total = np.zeros((N, settings["num_clusters"]))
-            for t in range(T):
-                X = data[:, :, s, t]
-                nu = params.s_t_nu[:, :, t, s]
-                lv = vmf_log_probability(
-                    X, nu, params.kappa, log_c=log_c)
-                log_vmf_total += np.nan_to_num(lv, nan=0.0)
-
-            sl = params.s_lambda[:, :, s]
-            log_sl = np.log(np.maximum(sl, np.finfo(float).tiny))
-            costs[s] = (np.nansum(sl * log_vmf_total)
-                        + np.nansum(sl * log_theta)
-                        - np.nansum(sl * log_sl))
-
+            costs[s] = _em_cost_subject(
+                data[:, :, s, :], params.s_lambda[:, :, s],
+                params.s_t_nu[:, :, :, s], params.kappa, log_c, log_theta)
     return costs
 
 
@@ -705,5 +699,17 @@ def _compute_inter_cost(
     pool: ProcessPoolExecutor | None = None,
 ) -> float:
     """Compute total inter-subject cost."""
-    return float(np.sum(
-        _compute_em_cost(params, settings, data, pool=pool)))
+    em_cost = params.cost_em
+    if em_cost is None:
+        em_cost = _compute_em_cost(params, settings, data, pool=pool)
+    session_dots = np.sum(
+        params.s_psi[:, :, np.newaxis, :] * params.s_t_nu, axis=0)
+    session_terms = (
+        (params.sigma[:, np.newaxis, np.newaxis] * session_dots).astype(np.float32)
+        + cdln(params.sigma, settings["dim"])[:, np.newaxis, np.newaxis])
+    session_prior = np.nansum(np.sum(np.sum(session_terms, axis=0), axis=1))
+    subject_dots = np.sum(params.mu[:, :, np.newaxis] * params.s_psi, axis=0)
+    subject_prior = np.sum(
+        (params.epsil[:, np.newaxis] * subject_dots).astype(np.float32)
+        + cdln(params.epsil, settings["dim"])[:, np.newaxis])
+    return float(np.sum(em_cost) + session_prior + subject_prior)

@@ -1,0 +1,42 @@
+{
+  "scope": "synthetic normalized group-prior EM kernel only",
+  "cbig_revision": "35b5664bec8822e2f77da5e090e96f91d0095be6",
+  "buckner_revision": "988ec48cf5453c6009a6f82dbddf5d5b99eda3cd",
+  "runtime": "ORACLE_VERSION=6.4.0",
+  "elapsed_seconds": 0.2604348659515381,
+  "case": "complete",
+  "input_dtype": "float64",
+  "shape_N_D_S_T": [
+    300,
+    101,
+    3,
+    2
+  ],
+  "clusters": 3,
+  "seed": 73619,
+  "max_iter": 5,
+  "adapter_sha256": "15f1781c9a0b0b0ba69e279bd34cba2ba8140f3ca0807689c81086e8085733fd",
+  "runtime_files_sha256": {
+    "cbig_kernel.m": "15f1781c9a0b0b0ba69e279bd34cba2ba8140f3ca0807689c81086e8085733fd",
+    "mtimesx.m": "02f1db4c22d3f18241d9b2c62ee5737dc1572830793f76e0f452ced869dc8f01",
+    "octave_fzero.m": "deeedf87d60f665031776d0b4e1edbb1c88d61bb3ce8aed9d74341373ad2bbb4"
+  },
+  "upstream_files_sha256": {
+    "CBIG_ComputeCorrelationProfile.m": "2c71f43d67c2db3194298bc0f65b5371c0cd28bed76f6a1ea67f456a03ed72e8",
+    "CBIG_IndCBM_generate_MSHBM_params.m": "40d66efd09b5c90dd0cde2e8be02395a93938dc9b0a6ebf74d11e8f09041e36d",
+    "CBIG_MSHBM_estimate_group_priors.m": "aa4814b1f1b43fae577a57dfe2a4106e1e34adafa6d535458b466bb7c3b629d6",
+    "CBIG_corr.m": "cd1e5df5bfaabbd66e524e3cdc697ba803d9f70d702fa534ca6388956e8d7bff",
+    "CBIG_nanmean.m": "e0ca3ee5bf666f6c3ba74602faafee72e3c4109c124ec553780a6ca159f69a08",
+    "CBIG_nansum.m": "3f15e52aaa11982b807ef27969f84ee951591496c2f718dff484b6485c2f8e7f",
+    "LICENSE-CBIG.md": "0e38f0e8b304f13de2ce2911320faaa08ced178e031d3bbebc3e4769762e5f50",
+    "mtimesx_upstream.c": "f33b680a4909f6c6b5b3f24edb7ce473061619ce7bf7123960bd1e9cd1651f82"
+  },
+  "fixture_sha256": "bd7097b04f27d5afee8e1ae53f308569921ca83ce5c4d3c1152ebf1baf972744",
+  "iteration": 4,
+  "source_changes": [
+    "replace file/mesh/argument setup with supplied arrays and identical settings",
+    "omit output-save and addpath/rmpath blocks",
+    "replace mtimesx infrastructure with explicit per-page matrix multiplication",
+    "catch Octave fzero bracket failures and return failure exitflag; invAd returns outu independently of fzero"
+  ]
+}

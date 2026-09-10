@@ -1,0 +1,99 @@
+{
+  "scope": "synthetic normalized group-prior EM kernel only",
+  "case": "missing",
+  "python": "3.14.5",
+  "numpy": "2.5.3",
+  "elapsed_seconds": 0.03409133298555389,
+  "parameters": {
+    "mu": {
+      "atol": 2e-05,
+      "rtol": 0.0001,
+      "max_absolute_error": 1.8790690503589502e-08,
+      "max_relative_error": 1.2955754229723655e-05,
+      "passed": true
+    },
+    "s_psi": {
+      "atol": 2e-05,
+      "rtol": 0.0001,
+      "max_absolute_error": 1.245285480011571e-07,
+      "max_relative_error": 0.00013400541031063673,
+      "passed": true
+    },
+    "s_t_nu": {
+      "atol": 2e-05,
+      "rtol": 0.0001,
+      "max_absolute_error": 2.9802322387695312e-08,
+      "max_relative_error": 2.238355006045797e-06,
+      "passed": true
+    },
+    "theta": {
+      "atol": 0.0001,
+      "rtol": 0.0001,
+      "max_absolute_error": 0.0,
+      "max_relative_error": 0.0,
+      "passed": true
+    },
+    "s_lambda": {
+      "atol": 0.0001,
+      "rtol": 0.0001,
+      "max_absolute_error": 7.513989430663059e-13,
+      "max_relative_error": 7.513989620482403e-09,
+      "passed": true
+    },
+    "epsil": {
+      "atol": 0.05,
+      "rtol": 0.0002,
+      "max_absolute_error": 0.002841165262452705,
+      "max_relative_error": 2.1182947671430917e-06,
+      "passed": true
+    },
+    "sigma": {
+      "atol": 0.05,
+      "rtol": 0.0002,
+      "max_absolute_error": 0.017454016384363058,
+      "max_relative_error": 4.496759672722318e-06,
+      "passed": true
+    },
+    "kappa": {
+      "atol": 0.05,
+      "rtol": 0.0002,
+      "max_absolute_error": 0.0,
+      "max_relative_error": 0.0,
+      "passed": true
+    },
+    "cost_em": {
+      "atol": 0.1,
+      "rtol": 5e-06,
+      "max_absolute_error": 0.015625,
+      "max_relative_error": 1.1757132905569648e-07,
+      "passed": true
+    },
+    "cost_intra": {
+      "atol": 0.1,
+      "rtol": 5e-06,
+      "max_absolute_error": 0.03125,
+      "max_relative_error": 9.455152509718951e-08,
+      "passed": true
+    },
+    "cost_inter": {
+      "atol": 0.1,
+      "rtol": 5e-06,
+      "max_absolute_error": 0.03125,
+      "max_relative_error": 9.455152509718951e-08,
+      "passed": true
+    },
+    "record": {
+      "atol": 0.1,
+      "rtol": 5e-06,
+      "max_absolute_error": 0.03125,
+      "max_relative_error": 9.455767621106635e-08,
+      "passed": true
+    }
+  },
+  "unpermuted_label_mismatches": 0,
+  "iteration": {
+    "python": 5,
+    "octave": 5
+  },
+  "passed": true
+}

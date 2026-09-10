@@ -40,3 +40,9 @@
 - Final reference refresh plus complete suite:323passed,1optional-data skip in28.46sec.
 - Original upstream source/adapter/log whitespace is retained byte-for-byte
   for checksums; .gitattributes prevents automatic newline conversion.
+- Published reviewed implementation4ae9b10 to private lobennett/pyMSHBM main.
+- GitHub Actions run34529901800 succeeded:Python3.11,3.13,3.14 test matrix,
+  wheel/sdist build,uv tool installation,and both CLI help commands.
+- Fresh final wheel/sdist build succeeded;all local Markdown targets resolve.
+- Task-created Octave container stopped after reference execution; source
+  checkouts and ignored local smoke data remain available for reproduction.

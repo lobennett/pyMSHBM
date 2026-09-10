@@ -23,7 +23,7 @@ with a measured compatibility path to Buckner/CBIG.
 - [x] Implement canonical profiles, initialization and workflow after tests.
 - [x] Package with uv, document installation, scientific contract and limits.
 - [x] Independently review, fix findings, run full tests and wheel checks.
-- [ ] Create and push private repository; verify GitHub state and CI.
+- [x] Create and push private repository; verify GitHub state and CI.
 
 Parallel interfaces: discovery produces SurfaceRun(subject, session, task,
 run, lh, rh); integration consumes it. Reference generator supplies fixed

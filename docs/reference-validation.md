@@ -5,8 +5,13 @@ on four deterministic synthetic fixtures, including float32 production input,
 missing sessions, zero-profile vertices, and uncertain posteriors. Labels are
 compared in their original network order: no permutation or relabeling is
 allowed. This establishes agreement for these numerical cases. It does not
-establish equivalence of human parcellations, preprocessing, mesh assets, or
-the complete MATLAB workflow.
+establish equivalence of preprocessing, mesh assets, or the complete MATLAB
+workflow. The completed [OpenNeuro comparisons](openneuro-validation.md) add
+bounded human-data evidence. In the MSC01/MSC02 unresolved-zero follow-up,
+profiles are exact and stopping decisions agree; directions, concentrations
+and costs pass tolerance. One label mismatch and spatial-prior/posterior
+failures mean overall acceptance still fails. Historical single-participant
+results and the strict input-coverage failures remain retained.
 
 ## Sources and runtime
 
@@ -111,6 +116,17 @@ sigma. The diagnostic adapter adds a 10,000-iteration guard, which was not
 reached. This stage is tested separately in `test_reference_intra_boundary.py`;
 it is not an end-to-end surface oracle.
 
+The real-data case exposed float32 reduction-order differences that the smaller
+fixtures did not reveal. A new independent
+[1,175-feature normalization fixture](../validation/fixtures/normalization_high_dim_provenance.json)
+executes the original CBIG lines on 16 binary/continuous profiles and on separate
+single-row calls. Fortran-layout feature reductions, with norms computed before
+boolean row selection, now match those reference arrays exactly. The explicit
+single-row float32 accumulation avoids NumPy's alternate contiguous-axis
+reduction. This fixture and all four follow-up run profiles are exact after correction;
+existing acceptance tolerances were not widened. See the
+[before/after measurements](openneuro-validation.md#before-and-after-the-normalization-correction).
+
 ## Reproduction
 
 With the project environment installed, compare the portable fixtures without
@@ -161,7 +177,7 @@ checked-in fixture.
 
 ## Limits
 
-These are numerical kernel tests using synthetic data. They do not test
+The portable fixtures above are numerical kernel tests using synthetic data. They do not test
 denoising equivalence, fsaverage registration, interpolation, asset-version
 equivalence, temporal censoring, fMRIPrep vs Buckner preprocessing, or
 scientific accuracy on human data. The full-surface smoke run exercises the
@@ -169,6 +185,19 @@ Python workflow but is not an upstream full-surface comparison. The group
 fixtures do not exercise vMF dimension 1200 or higher, and their shared
 inter-region concentration remains at the source floor. No conclusion about
 other parameter regimes follows from these cases.
+
+The completed real-data follow-up uses MSC01 and MSC02, func01/func02, with
+81,924 vertices, 1,175 features and two sessions per participant. Binary and
+normalized profiles are exact and both engines converge at iteration three,
+but a label mismatch and spatial-prior/posterior tolerance failures prevent
+overall acceptance. The unresolved-zero policy and common originally observed
+support comparison are documented in the [real-data report](openneuro-validation.md).
+The strict MSC01 benchmark and failed multi-participant coverage attempts are
+preserved separately. An isolated 0.2.2 wheel reproduces every Python parameter
+exactly; that packaging check does not establish upstream equivalence. The
+[real-reference runtime inventory](../validation/reports/openneuro/reference-runtime.json)
+records the OpenBLAS container used for the human-data runs, distinct from the
+original synthetic runtime described above.
 
 During fixture design, smaller/noisier or nearly identical-session examples
 produced concentrations around 1e11–1e14 and unstable cost trajectories in

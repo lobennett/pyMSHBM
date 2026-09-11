@@ -1,0 +1,11 @@
+# Recreates the principal numerical tools used for the real-data benchmark.
+# Build with --platform linux/amd64. Apt dependencies are not a hermetic snapshot;
+# preserve dpkg-query output and image digest for each executed benchmark.
+FROM ubuntu:22.04@sha256:4f838adc7181d9039ac795a7d0aba05a9bd9ecd480d294483169c5def983b64d
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    octave=6.4.0-2 \
+    libopenblas0-pthread=0.3.20+ds-1 \
+    connectome-workbench=1.5.0-2 \
+    && rm -rf /var/lib/apt/lists/*
+CMD ["sleep", "infinity"]

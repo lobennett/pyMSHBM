@@ -13,11 +13,20 @@ import tempfile
 import nibabel as nib
 import numpy as np
 
-from pymshbm.core.buckner import binary_profiles, centroids_from_labels, normalize_profiles
+from pymshbm.core.buckner import (
+    binary_profiles, centroids_from_labels, normalize_profiles, validate_cortical_bold,
+)
 from pymshbm.io.assets import N_VERTICES, load_assets, sha256_file
 from pymshbm.pipeline.training import params_training
 
 logger = logging.getLogger(__name__)
+
+
+def python_source_hashes():
+    """Identify installed Python implementation independent of checkout paths."""
+    package = Path(__file__).resolve().parents[1]
+    return {path.relative_to(package).as_posix(): sha256_file(path)
+            for path in sorted(package.rglob('*.py'))}
 
 
 def read_surface_bold(path, *, expected_vertices=N_VERTICES):
@@ -64,12 +73,14 @@ def validate_fit(params):
         raise ValueError('Model returned nonfinite parameters; no completed dataset was published')
 
 
-def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5):
+def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5, allow_zero_cortex=False):
     """Fit the joint cohort model and atomically write one derivative dataset.
 
     Each paired run contributes one model session. A disk-backed single-
     precision profile tensor avoids retaining every full correlation matrix
     in RAM. Outputs are conditional on the complete selected cohort.
+    allow_zero_cortex explicitly permits zero nonseed targets and records their
+    coverage; they remain zero observations rather than NaN missing sessions.
     """
     runs = list(runs)
     if not runs:
@@ -79,6 +90,7 @@ def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5):
     output_dir = Path(output_dir).expanduser().resolve()
     if output_dir.exists():
         raise FileExistsError(f'Output already exists; choose a new directory: {output_dir}')
+    source_hashes = python_source_hashes()
     assets = load_assets(assets_dir)
     subjects = sorted({r.subject for r in runs})
     if any(not sub.isascii() or not sub.isalnum() for sub in subjects):
@@ -86,6 +98,8 @@ def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5):
     seen = set()
     counts = defaultdict(int)
     input_records = []
+    usable_session_counts = {subject: np.zeros(2 * N_VERTICES, dtype=np.uint32)
+                             for subject in subjects}
     for run in runs:
         pair = (Path(run.lh).resolve(), Path(run.rh).resolve())
         if any(p in seen for p in pair) or pair[0] == pair[1]:
@@ -94,16 +108,27 @@ def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5):
         lh, rh = read_surface_bold(pair[0]), read_surface_bold(pair[1])
         if lh.shape[0] != rh.shape[0]:
             raise ValueError(f'Hemisphere timepoints disagree for sub-{run.subject}')
-        for data, mask in ((lh, assets.lh_cortex), (rh, assets.rh_cortex)):
-            if not np.isfinite(data[:, mask]).all() or np.any(np.ptp(data[:, mask], axis=0) == 0):
-                raise ValueError(f'Nonfinite or constant cortical BOLD in sub-{run.subject}')
+        hemisphere_records = {}
+        for hemi, data, mask, path, offset in (
+                ('lh', lh, assets.lh_cortex, pair[0], 0),
+                ('rh', rh, assets.rh_cortex, pair[1], N_VERTICES)):
+            try:
+                zero = validate_cortical_bold(data, mask, allow_zero_cortex=allow_zero_cortex)
+            except ValueError as exc:
+                raise ValueError(f'{exc} (sub-{run.subject}, {hemi})') from exc
+            indices = np.flatnonzero(zero)
+            hemisphere_records[hemi] = {
+                'path': str(path), 'sha256': sha256_file(path),
+                'zero_cortex_count': int(indices.size),
+                'zero_cortex_indices': indices.tolist(),
+            }
+            usable_session_counts[run.subject][offset:offset + N_VERTICES] += (mask & ~zero)
         counts[run.subject] += 1
         input_records.append({'subject': run.subject, 'session': run.session,
                               'task': run.task, 'run': run.run,
                               'entities': dict(run.entities),
                               'model_session': counts[run.subject], 'timepoints': lh.shape[0],
-                              'lh': {'path': str(pair[0]), 'sha256': sha256_file(pair[0])},
-                              'rh': {'path': str(pair[1]), 'sha256': sha256_file(pair[1])}})
+                              **hemisphere_records})
     del lh, rh, data
     n_seed = int(assets.lh_cortex[:642].sum() + assets.rh_cortex[:642].sum())
     shape = (2 * N_VERTICES, n_seed, len(subjects), max(counts.values()))
@@ -121,7 +146,8 @@ def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5):
         for index, (run, record) in enumerate(zip(runs, input_records, strict=True), 1):
             logger.info('Computing connectivity profile %d/%d: sub-%s', index, len(runs), run.subject)
             profile = binary_profiles(read_surface_bold(run.lh), read_surface_bold(run.rh),
-                                      assets.lh_cortex, assets.rh_cortex)
+                                      assets.lh_cortex, assets.rh_cortex,
+                                      allow_zero_cortex=allow_zero_cortex)
             for hemi, path in (('lh', run.lh), ('rh', run.rh)):
                 if sha256_file(path) != record[hemi]['sha256']:
                     raise ValueError(f'Input changed during fitting: {path}')
@@ -137,9 +163,17 @@ def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5):
         params = params_training(tensor, g_mu, 15, max_iter=max_iter, save_all=True,
                                  output_dir=staging / 'model', subject_ids=subjects)
         validate_fit(params)
+        coverage_subject_files = {}
         for subject_index, subject in enumerate(subjects):
             directory = staging / f'sub-{subject}' / 'func'
             directory.mkdir(parents=True)
+            coverage_path = directory / f'sub-{subject}_desc-mshbm_coverage.npz'
+            usable_counts = usable_session_counts[subject]
+            np.savez_compressed(
+                coverage_path, cortex_mask=cortex, usable_session_count=usable_counts,
+                usable_in_any_session=usable_counts > 0,
+                full_session_coverage=cortex & (usable_counts == counts[subject]))
+            coverage_subject_files[subject] = coverage_path.relative_to(staging).as_posix()
             posterior = params.s_lambda[:, :, subject_index]
             labels = np.argmax(posterior, axis=1).astype(np.int32) + 1
             labels[posterior.sum(axis=1) == 0] = 0
@@ -158,12 +192,24 @@ def run_buckner_workflow(runs, output_dir, assets_dir, *, max_iter=5):
         if len(params.record) > 1 and abs(params.record[-2]) > 0:
             relative_change = abs((params.record[-1] - params.record[-2]) / params.record[-2])
         converged = relative_change is not None and relative_change <= 1e-5
+        if python_source_hashes() != source_hashes:
+            raise ValueError('Python source changed during fitting; no completed dataset was published')
         provenance = {'created_utc': datetime.now(timezone.utc).isoformat(),
                       'workflow': 'Buckner group-estimation posterior extraction',
+                      'python_source_sha256': source_hashes,
                       'software': software, 'assets': assets.provenance,
                       'subjects_in_model_order': subjects, 'runs': input_records,
+                      'coverage': {
+                          'index_base': 0,
+                          'run_indices': 'Local to each hemisphere, cortical zero time courses only',
+                          'vertex_order': 'left hemisphere then right hemisphere',
+                          'usable_definition': 'Finite nonconstant cortical input time course; may include preparation imputations',
+                          'zero_observation_policy': 'Literal zero profiles, not NaN missing sessions',
+                          'subject_files': coverage_subject_files,
+                      },
                       'settings': {'num_clusters': 15, 'max_iter': max_iter, 'conv_th': 1e-5,
                                    'correlation_threshold': .1, 'seed_mesh': 'fsaverage3',
+                                   'allow_zero_cortex': bool(allow_zero_cortex),
                                    'additional_denoising': False, 'additional_resampling': False,
                                    'additional_individual_mrf': False, 'profile_dtype': 'float32'},
                       'fit': {'iterations': params.iter_inter, 'objective_history': params.record,

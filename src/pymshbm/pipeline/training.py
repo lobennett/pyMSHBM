@@ -103,5 +103,9 @@ def _save_params(params: MSHBMParams, output_dir: Path) -> None:
         save_dict["s_t_nu"] = params.s_t_nu
     if params.s_lambda is not None:
         save_dict["s_lambda"] = params.s_lambda
+    for name in ("cost_em", "cost_intra", "cost_inter"):
+        value = getattr(params, name)
+        if value is not None:
+            save_dict[name] = value
 
     sio.savemat(str(priors_dir / "Params_Final.mat"), {"Params": save_dict})

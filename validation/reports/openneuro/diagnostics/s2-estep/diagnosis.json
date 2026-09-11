@@ -1,0 +1,418 @@
+{
+  "scope": "Bounded read-only diagnosis of the failed MSC01/MSC02 masked-coverage comparison; no new full fits",
+  "result": "A runtime matrix-product contribution is demonstrated; no new concrete production port bug was established. Original full comparison remains FAIL.",
+  "original_comparison_sha256": "fc6e1890d1af5a1fee9ade954d08ec35ca46ff823f16d34e8420c93bd1df619e",
+  "original_manifest_sha256": "7367a0f0c9a366fa0c746f685cd4c2bf5ed482d711bc2228915645e8a0b90bfc",
+  "original_parameter_inputs": {
+    "python": {
+      "sha256": "e183d020b745a01b8182a08e972f43e6e1f2ca1df4c6630bd33df1291d00b27f"
+    },
+    "reference": {
+      "sha256": "832169d7cb1b09597cf1df3923ca0a57ddcabf0445b448bafb3b7d8038e6961d"
+    }
+  },
+  "reference_profile_inputs": [
+    {
+      "stem": "run-001",
+      "reference_mat_sha256": "2d7b197b0149b1b48dafacf4f9e39af80c75657f30ada96a2e18d003d8b58004"
+    },
+    {
+      "stem": "run-002",
+      "reference_mat_sha256": "711eed0b2ab2b58ca58dceaf80bfb39848a4dd19981982d1c6de12f3812bb01e"
+    },
+    {
+      "stem": "run-003",
+      "reference_mat_sha256": "50a5f7f96367f6859238d8499054a395bcd1abce7b516e16babbce91ec6f9a7d"
+    },
+    {
+      "stem": "run-004",
+      "reference_mat_sha256": "a52c885546d0dfea32a48a5955e873788ac52c88853b6850d10d17273ea7e36f"
+    }
+  ],
+  "witness_rows": [
+    208,
+    233,
+    1086,
+    1874,
+    2585,
+    8816,
+    10990,
+    11428,
+    12453,
+    12517,
+    15223,
+    18417,
+    19892,
+    21001,
+    25067,
+    26687,
+    29150,
+    36970,
+    37237,
+    37628,
+    37732,
+    38106,
+    41447,
+    43279,
+    43957,
+    47229,
+    47527,
+    48647,
+    49749,
+    51288,
+    53225,
+    54336,
+    54810,
+    56657,
+    57107,
+    57339,
+    60819,
+    61184,
+    61896,
+    66405,
+    66888,
+    69355,
+    69847,
+    72100,
+    73861,
+    74974,
+    75656,
+    77831,
+    78616,
+    80345,
+    81422
+  ],
+  "selection": "All 51 vertices with at least one final posterior element outside fixed atol=rtol=1e-4; both subjects and sessions retained",
+  "shape_N_D_S_T": [
+    51,
+    1175,
+    2,
+    2
+  ],
+  "single_mismatch": {
+    "subject": "MSC02",
+    "hemisphere": "R",
+    "hemisphere_vertex_zero_based": 16145,
+    "concatenated_vertex_zero_based": 57107,
+    "python": {
+      "label": 11,
+      "network10_probability": 0.49560558795928955,
+      "network11_probability": 0.5043944120407104,
+      "top_two_margin": 0.008788824081420898
+    },
+    "reference": {
+      "label": 10,
+      "network10_probability": 0.5028076171875,
+      "network11_probability": 0.4971924424171448,
+      "top_two_margin": 0.005615174770355225
+    },
+    "support": {
+      "func01": {
+        "originally_observed": true,
+        "imputed": false,
+        "unresolved_zero": false
+      },
+      "func02": {
+        "originally_observed": true,
+        "imputed": false,
+        "unresolved_zero": false
+      }
+    },
+    "support_artifacts": {
+      "func01": {
+        "file": "sub-MSC02/ses-func01/func/sub-MSC02_ses-func01_task-rest_hemi-R_space-fsaverage6_desc-preproc_bold_coverage.npz",
+        "sha256": "b97a7d5123b2781b429398a6a5e00a5af1bc2530b94d72ede2a5de05661905ee"
+      },
+      "func02": {
+        "file": "sub-MSC02/ses-func02/func/sub-MSC02_ses-func02_task-rest_hemi-R_space-fsaverage6_desc-preproc_bold_coverage.npz",
+        "sha256": "b97a7d5123b2781b429398a6a5e00a5af1bc2530b94d72ede2a5de05661905ee"
+      }
+    }
+  },
+  "same_input_estep": {
+    "reference_state": {
+      "raw_dot": {
+        "max_absolute_error": 1.5497207641601562e-06,
+        "unequal": 2859,
+        "tol_violations": 0
+      },
+      "posterior": {
+        "max_absolute_error": 0.0003160834312438965,
+        "unequal": 62,
+        "tol_violations": 12
+      },
+      "theta": {
+        "max_absolute_error": 0.00015807151794433594,
+        "unequal": 61,
+        "tol_violations": 1
+      },
+      "mismatch_vertex": {
+        "python": {
+          "net10": 0.999951958656311,
+          "net11": 4.801986870006658e-05,
+          "argmax": 10
+        },
+        "octave": {
+          "net10": 0.999951958656311,
+          "net11": 4.801986870006658e-05,
+          "argmax": 10
+        }
+      }
+    },
+    "python_state": {
+      "raw_dot": {
+        "max_absolute_error": 1.3709068298339844e-06,
+        "unequal": 2874,
+        "tol_violations": 0
+      },
+      "posterior": {
+        "max_absolute_error": 0.00027313828468322754,
+        "unequal": 69,
+        "tol_violations": 8
+      },
+      "theta": {
+        "max_absolute_error": 0.00013656914234161377,
+        "unequal": 63,
+        "tol_violations": 1
+      },
+      "mismatch_vertex": {
+        "python": {
+          "net10": 0.9999508857727051,
+          "net11": 4.906265530735254e-05,
+          "argmax": 10
+        },
+        "octave": {
+          "net10": 0.9999508857727051,
+          "net11": 4.906265530735254e-05,
+          "argmax": 10
+        }
+      }
+    },
+    "python_nu_reference_theta": {
+      "raw_dot": {
+        "max_absolute_error": 1.3709068298339844e-06,
+        "unequal": 2874,
+        "tol_violations": 0
+      },
+      "posterior": {
+        "max_absolute_error": 0.00027301907539367676,
+        "unequal": 67,
+        "tol_violations": 8
+      },
+      "theta": {
+        "max_absolute_error": 0.00013650953769683838,
+        "unequal": 64,
+        "tol_violations": 1
+      },
+      "mismatch_vertex": {
+        "python": {
+          "net10": 0.9999518394470215,
+          "net11": 4.813724444829859e-05,
+          "argmax": 10
+        },
+        "octave": {
+          "net10": 0.9999518394470215,
+          "net11": 4.813724444829859e-05,
+          "argmax": 10
+        }
+      }
+    },
+    "reference_nu_python_theta": {
+      "raw_dot": {
+        "max_absolute_error": 1.5497207641601562e-06,
+        "unequal": 2859,
+        "tol_violations": 0
+      },
+      "posterior": {
+        "max_absolute_error": 0.0003161132335662842,
+        "unequal": 62,
+        "tol_violations": 12
+      },
+      "theta": {
+        "max_absolute_error": 0.00015807151794433594,
+        "unequal": 58,
+        "tol_violations": 1
+      },
+      "mismatch_vertex": {
+        "python": {
+          "net10": 0.9999510049819946,
+          "net11": 4.8943027650238946e-05,
+          "argmax": 10
+        },
+        "octave": {
+          "net10": 0.9999510049819946,
+          "net11": 4.8943027650238946e-05,
+          "argmax": 10
+        }
+      }
+    },
+    "between_states_same_octave": {
+      "reference_state": 0.0,
+      "python_state": 0.0025316476821899414,
+      "python_nu_reference_theta": 0.00036323070526123047,
+      "reference_nu_python_theta": 0.002301812171936035
+    }
+  },
+  "common_upstream_products_estep_tail": {
+    "reference_state": {
+      "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+      "log_c_max_absolute_error": 0.0,
+      "posterior_max_absolute_error": 2.9802322387695312e-08,
+      "posterior_tolerance_violations": 0
+    },
+    "python_state": {
+      "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+      "log_c_max_absolute_error": 0.0,
+      "posterior_max_absolute_error": 2.9802322387695312e-08,
+      "posterior_tolerance_violations": 0
+    },
+    "python_nu_reference_theta": {
+      "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+      "log_c_max_absolute_error": 0.0,
+      "posterior_max_absolute_error": 2.9802322387695312e-08,
+      "posterior_tolerance_violations": 0
+    },
+    "reference_nu_python_theta": {
+      "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+      "log_c_max_absolute_error": 0.0,
+      "posterior_max_absolute_error": 2.9802322387695312e-08,
+      "posterior_tolerance_violations": 0
+    }
+  },
+  "direction_reduction_layout": {
+    "scope": "Exact production allocation/broadcast expressions with selected-row weighted-data values; layout independent of vertex count; no full M-step or fit executed",
+    "arrays": {
+      "weighted_data": {
+        "shape": [
+          1175,
+          15,
+          2,
+          2
+        ],
+        "dtype": "float32",
+        "strides": [
+          240,
+          16,
+          8,
+          4
+        ],
+        "c_contiguous": true,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      },
+      "lambda_X": {
+        "shape": [
+          1175,
+          15,
+          2,
+          2
+        ],
+        "dtype": "float32",
+        "strides": [
+          240,
+          16,
+          4,
+          8
+        ],
+        "c_contiguous": false,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      },
+      "intra_accum": {
+        "shape": [
+          1175,
+          15,
+          2
+        ],
+        "dtype": "float64",
+        "strides": [
+          240,
+          16,
+          8
+        ],
+        "c_contiguous": true,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      },
+      "inter_mu": {
+        "shape": [
+          1175,
+          15
+        ],
+        "dtype": "float64",
+        "strides": [
+          120,
+          8
+        ],
+        "c_contiguous": true,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      }
+    }
+  },
+  "source_sha256": {
+    "src/pymshbm/core/group_priors.py": "be5cafbd711675cddd8d70981a3bd8180a870e713ed5b0a0129a81119374933c",
+    "src/pymshbm/math/vmf.py": "9cac5ba7e97641ac3f2b052af6886e38a51d536c694d661ace858250f1db6dee",
+    "validation/runtime/cbig_kernel.m": "15f1781c9a0b0b0ba69e279bd34cba2ba8140f3ca0807689c81086e8085733fd",
+    "validation/runtime/mtimesx.m": "02f1db4c22d3f18241d9b2c62ee5737dc1572830793f76e0f452ced869dc8f01",
+    "validation/upstream/CBIG_nansum.m": "3f15e52aaa11982b807ef27969f84ee951591496c2f718dff484b6485c2f8e7f"
+  },
+  "runtime": {
+    "python": {
+      "version": "3.14.5",
+      "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "blas": {
+        "name": "accelerate",
+        "found": true,
+        "version": "unknown",
+        "detection method": "system",
+        "include directory": "unknown",
+        "lib directory": "unknown",
+        "openblas configuration": "unknown",
+        "pc file directory": "unknown"
+      },
+      "numpy_compiled_sha256": "1071c0ead3adf59ae83dfeb84bea53346c8aa9c26afdd033bd65a6388c906161"
+    },
+    "reference": {
+      "octave_package": "6.4.0-2",
+      "architecture": "x86_64",
+      "openblas_package": "0.3.20+ds-1",
+      "blas_resolved_path": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3",
+      "blas_sha256": "babdd0d2612d7bd2f0099ac8c82714702fb5bb47b1e2e6fdba819c97c79fc0fd",
+      "octave_cli_sha256": "66ee110ee2bc13b7a9547e1f619cd06e041269aac819b9f344992da4e79ea7f7"
+    }
+  },
+  "limitations": [
+    "Final saved theta is supplied to the replay. It is not the unavailable pre-final-E-step theta; replay does not reconstruct the final published posteriors or label crossing.",
+    "Selecting 51 rows changes the BLAS matrix shape relative to the complete fit. This witness shows an arithmetic contribution, not the precise full-fit sequence.",
+    "Differences in accumulated parameters and previous theta remain. The witness does not attribute all full-fit errors to BLAS or rule out every other implementation difference.",
+    "Direction layout expressions use selected-row weighted-data values with the exact production allocation/broadcast shapes; no claim to capture intermediate arrays from the original run.",
+    "Fixed original tolerances are unchanged. No source in an executed manifest was modified. Native MATLAB was not executed."
+  ],
+  "adaptations": [
+    "Supply captured final parameters and selected independently computed reference profile rows",
+    "Execute unchanged literal E-step body and Cdln local source",
+    "Capture an additional raw mtimesx product for diagnosis; no fit or parameter update loops"
+  ],
+  "artifacts_sha256": {
+    "CBIG_nansum.m": "3f15e52aaa11982b807ef27969f84ee951591496c2f718dff484b6485c2f8e7f",
+    "LICENSE-CBIG.md": "0e38f0e8b304f13de2ce2911320faaa08ced178e031d3bbebc3e4769762e5f50",
+    "LICENSE-PYMSHBM.md": "9bad42829a809f3152fffb8a64214855eaca22cebe7be642939837f56b1a323f",
+    "README.md": "69b889f76bdc26d48fd1de33e1439472dc7555a6054e9cc0cc5c53c89492c739",
+    "input.mat": "362cc5cc2724e9ab29c08846bba465b820202febf03160d81ce3a38c8530d502",
+    "mtimesx.m": "02f1db4c22d3f18241d9b2c62ee5737dc1572830793f76e0f452ced869dc8f01",
+    "octave-tail.mat": "62e2a33b044c44bbc963b5d710dcec493dd2d5415a146670c2975e06bd7749e6",
+    "octave.mat": "0203d4c9d6fa1171720e4b6fadd2d4cbd25cea9533e7076039257f83f990ab8f",
+    "provenance.json": "2e9192920b0090433904037865b163eb5599e35923e9e447f7c87d331262948c",
+    "python.mat": "9a370b818e0121934d34abe97b9073e4c05dee1d58f39b31d15d7e24b1eac36b",
+    "python_estep_frozen.py": "ff157a6520ca76bfa7b5befbe89f71df4828f3f3bee354d3d61da95354c77b4b",
+    "replay.py": "937703cb2163990a7a63b3cf17e1d4da16dfbec7d33aea4c5c7548095112d080",
+    "report.json": "77ef7e89ca045d0ea92b1874d64a1e287c80787a25b6859a3b6f27be18db61d2",
+    "s2_estep_witness.m": "805b748b9837f37568655888f5a2e33aa8c0c3b3be06905d206d161752b51b9f",
+    "s2_estep_witness_tail.m": "1c84c5564adf19a0ba5c6c756b7050122eee86f7707dc7884c309bdb51e3ef6f",
+    "tail-and-layout-report.json": "0c3b81f6e1479a12613633d25dc816a34d42e528608569b39c065ae0b4162e06"
+  },
+  "preparation_manifest_sha256": "607122c380c7a15ac0022da67469b03e7c24714301c90fedc6d25325a06e3e3b"
+}

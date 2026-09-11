@@ -1,0 +1,103 @@
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+Estep..
+It is EM iteration.. 2..
+M-step..
+Estep..
+It is EM iteration.. 3..
+M-step..
+Estep..
+It is EM iteration.. 4..
+M-step..
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 1 intra iteration 1..update s_psi and sigma..
+It is inter interation 1 intra iteration 2..update s_psi and sigma..
+It is inter interation 1 intra iteration 3..update s_psi and sigma..
+It is inter interation 1 intra iteration 4..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+Estep..
+It is EM iteration.. 2..
+M-step..
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 1 intra iteration 1..update s_psi and sigma..
+It is inter interation 1 intra iteration 2..update s_psi and sigma..
+Inter-subject variability level ...
+[WARNING] epsil of 1 is Inf
+[WARNING] epsil of 2 is Inf
+[WARNING] epsil of 6 is less than the minimal value 500 
+[WARNING] epsil of 8 is less than the minimal value 500 
+[WARNING] epsil of 9 is less than the minimal value 500 
+[WARNING] epsil of 10 is less than the minimal value 500 
+[WARNING] epsil of 11 is less than the minimal value 500 
+[WARNING] epsil of 12 is less than the minimal value 500 
+[WARNING] epsil of 14 is less than the minimal value 500 
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+Estep..
+It is EM iteration.. 2..
+M-step..
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 2 intra iteration 1..update s_psi and sigma..
+It is inter interation 2 intra iteration 2..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+Estep..
+It is EM iteration.. 2..
+M-step..
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 2 intra iteration 1..update s_psi and sigma..
+It is inter interation 2 intra iteration 2..update s_psi and sigma..
+Inter-subject variability level ...
+[WARNING] epsil of 1 is less than the minimal value 500 
+[WARNING] epsil of 2 is less than the minimal value 500 
+[WARNING] epsil of 6 is less than the minimal value 500 
+[WARNING] epsil of 8 is less than the minimal value 500 
+[WARNING] epsil of 9 is less than the minimal value 500 
+[WARNING] epsil of 10 is less than the minimal value 500 
+[WARNING] epsil of 12 is less than the minimal value 500 
+[WARNING] epsil of 13 is less than the minimal value 500 
+[WARNING] epsil of 14 is less than the minimal value 500 
+Inter-region iteration 1 ...
+It is EM iteration.. 1..
+M-step..
+Estep..
+It is EM iteration.. 2..
+M-step..
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 3 intra iteration 1..update s_psi and sigma..
+It is inter interation 3 intra iteration 2..update s_psi and sigma..
+Inter-region iteration 2 ...
+It is EM iteration.. 1..
+M-step..
+Estep..
+It is EM iteration.. 2..
+M-step..
+Estep..
+EM..Done
+Intra-subject variability level...
+It is inter interation 3 intra iteration 1..update s_psi and sigma..
+It is inter interation 3 intra iteration 2..update s_psi and sigma..
+Inter-subject variability level ...
+[WARNING] epsil of 1 is less than the minimal value 500 
+[WARNING] epsil of 2 is less than the minimal value 500 
+[WARNING] epsil of 3 is less than the minimal value 500 
+[WARNING] epsil of 5 is less than the minimal value 500 
+[WARNING] epsil of 6 is less than the minimal value 500 
+[WARNING] epsil of 9 is less than the minimal value 500 
+[WARNING] epsil of 11 is less than the minimal value 500 
+ORACLE_VERSION=6.4.0

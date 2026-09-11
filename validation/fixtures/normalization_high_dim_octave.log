@@ -1,0 +1,3 @@
+ORACLE_VERSION=6.4.0
+COMPUTER=x86_64-pc-linux-gnu
+BLAS=-lblas

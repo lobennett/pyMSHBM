@@ -73,3 +73,47 @@ def test_bad_time_series_rejected(problem):
         lh[:, 0] = 0
     with pytest.raises(ValueError):
         binary_profiles(lh, rh, np.ones(4, bool), np.ones(4, bool), seed_vertices=2)
+
+
+def test_zero_cortical_target_requires_explicit_opt_in_and_stays_zero():
+    rng = np.random.default_rng(91)
+    lh, rh = rng.normal(size=(40, 10)), rng.normal(size=(40, 10))
+    cortex = np.ones(10, bool)
+    lh[:, 8] = 0  # Outside the first three seed vertices.
+    with pytest.raises(ValueError, match='Constant cortical'):
+        binary_profiles(lh, rh, cortex, cortex, seed_vertices=3)
+    profiles = binary_profiles(lh, rh, cortex, cortex, seed_vertices=3, allow_zero_cortex=True)
+    np.testing.assert_array_equal(profiles[8], 0)
+    np.testing.assert_array_equal(normalize_profiles(profiles, np.ones(20, bool))[8], 0)
+
+
+@pytest.mark.parametrize('problem', ['zero_seed', 'nonzero_constant', 'nonfinite'])
+def test_zero_cortex_opt_in_keeps_seed_and_invalid_data_checks(problem):
+    rng = np.random.default_rng(92)
+    lh, rh = rng.normal(size=(40, 10)), rng.normal(size=(40, 10))
+    if problem == 'zero_seed':
+        lh[:, 0] = 0
+        message = 'seed'
+    elif problem == 'nonzero_constant':
+        lh[:, 8] = .1  # Constant detection must not depend on mean roundoff.
+        message = 'Constant cortical'
+    else:
+        lh[0, 8] = np.nan
+        message = 'Nonfinite'
+    with pytest.raises(ValueError, match=message):
+        binary_profiles(lh, rh, np.ones(10, bool), np.ones(10, bool),
+                        seed_vertices=3, allow_zero_cortex=True)
+
+
+def test_zero_cortex_opt_in_does_not_allow_nonpositive_cutoff():
+    signals = np.zeros((12, 6))
+    for column in range(6):
+        signals[2 * column, column] = 1
+        signals[2 * column + 1, column] = -1
+    lh = np.zeros((12, 10))
+    rh = np.zeros((12, 10))
+    lh[:, :3] = signals[:, :3]
+    rh[:, :3] = signals[:, 3:]
+    with pytest.raises(ValueError, match='threshold is nonpositive'):
+        binary_profiles(lh, rh, np.ones(10, bool), np.ones(10, bool),
+                        seed_vertices=3, allow_zero_cortex=True)

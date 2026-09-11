@@ -1,0 +1,18 @@
+{
+  "subject": "MSC02",
+  "session": "func01",
+  "hemisphere": "R",
+  "eligible": false,
+  "fixed_maximum_mm": 5,
+  "unresolved_vertices": [
+    1659
+  ],
+  "maximum_remaining_distance_bound_mm": 5.617967456579208,
+  "refined_vertices": [
+    1659,
+    35134
+  ],
+  "scope": "Reconstructed from preserved preparation intermediates; no new BOLD or model fit",
+  "coverage_sha256": "5fdd3b2f57ba5209de31a8ee7f466ad2e40ca62fd4a48cd161a8cf48e9f88e8a",
+  "preparation_log_sha256": "6de74d080f2872504fbb17bd804e9a2b033e5d21eeb216cbd75db09fce3f1709"
+}

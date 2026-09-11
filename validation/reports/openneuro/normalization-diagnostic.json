@@ -1,0 +1,46 @@
+{
+  "run-001": {
+    "current": {
+      "maxerr": 5.662441253662109e-06,
+      "mismatches": 87178897
+    },
+    "c_sum": {
+      "maxerr": 5.662441253662109e-06,
+      "mismatches": 87178897
+    },
+    "f_sum": {
+      "maxerr": 0.0,
+      "mismatches": 0
+    },
+    "f_norm": {
+      "maxerr": 0.0,
+      "mismatches": 0
+    },
+    "sequential": {
+      "maxerr": 0.0,
+      "mismatches": 0
+    }
+  },
+  "run-002": {
+    "current": {
+      "maxerr": 6.079673767089844e-06,
+      "mismatches": 87109369
+    },
+    "c_sum": {
+      "maxerr": 6.079673767089844e-06,
+      "mismatches": 87109369
+    },
+    "f_sum": {
+      "maxerr": 0.0,
+      "mismatches": 0
+    },
+    "f_norm": {
+      "maxerr": 0.0,
+      "mismatches": 0
+    },
+    "sequential": {
+      "maxerr": 0.0,
+      "mismatches": 0
+    }
+  }
+}

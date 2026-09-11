@@ -19,6 +19,6 @@ jobs:
       - run: uv sync --frozen --extra dev
       - run: uv run --frozen pytest -q
       - run: uv build
-      - run: uv tool install --from dist/pymshbm-0.2.0-py3-none-any.whl pymshbm
+      - run: uv tool install --from dist/pymshbm-0.2.2-py3-none-any.whl pymshbm
       - run: pymshbm --help
       - run: pymshbm-fetch-assets --help

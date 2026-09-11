@@ -1,0 +1,122 @@
+{
+  "algorithm": "sha256",
+  "scope": "Every exported file except this self-excluding index",
+  "files": {
+    "MSC02/eligibility-msc02-reconstructed.json": {
+      "sha256": "f145634cd1198b44270fcc4beb8c4cd306dab03fa1088b80190465d2bd92a762",
+      "bytes": 545
+    },
+    "MSC02/eligibility-msc02-reconstructed.npz": {
+      "sha256": "5fdd3b2f57ba5209de31a8ee7f466ad2e40ca62fd4a48cd161a8cf48e9f88e8a",
+      "bytes": 23293
+    },
+    "MSC02/preparation-filled.log": {
+      "sha256": "6de74d080f2872504fbb17bd804e9a2b033e5d21eeb216cbd75db09fce3f1709",
+      "bytes": 15638
+    },
+    "MSC02/reconstructed-input-checks.json": {
+      "sha256": "ee1b2b5642d8ebc6429833c48a1c39f637534ac0edbfe8955943e5ff77b11f25",
+      "bytes": 3994
+    },
+    "MSC03/failed-MSC03_func01.R-coverage.json": {
+      "sha256": "6cbe9c13ae27efa788d1b156d1e214562a6bdb337ae41a1a3c1fa82b678e0f02",
+      "bytes": 25568
+    },
+    "MSC03/failed-MSC03_func01.R-coverage.npz": {
+      "sha256": "1e119bf27f25875daac88ccc0e9ab2c52e7e0b48f171baff5bd51ec23a06b45d",
+      "bytes": 79693
+    },
+    "MSC03/preparation-msc0103.log": {
+      "sha256": "739fcc8c619666132c69c04360f3b00971200b46a26954b8ae77e8006941c837",
+      "bytes": 17724
+    },
+    "MSC04/failed-MSC04_func01.L-coverage.json": {
+      "sha256": "ab0f952dc4d3d6a90ab2c77727db566d9328bf2e7a450a05ed1c4588b60761c3",
+      "bytes": 13500
+    },
+    "MSC04/failed-MSC04_func01.L-coverage.npz": {
+      "sha256": "19b8bc486a3dc2463a314c3b9caddc33cc2fa74d6730b6203ab7e5c7eb8c6e65",
+      "bytes": 80566
+    },
+    "MSC04/preparation-eligible-MSC04-authorized.log": {
+      "sha256": "ae8431926cb68b37850bd887454862f2cd87dc4d936500b5445445e94dce4ad0",
+      "bytes": 8100
+    },
+    "MSC05/failed-MSC05_func01.L-coverage.json": {
+      "sha256": "44f160adb6df284a42b1e1f8c06a9dc6ca0d641d9fcc48870f8a28b4d13ed268",
+      "bytes": 10302
+    },
+    "MSC05/failed-MSC05_func01.L-coverage.npz": {
+      "sha256": "4689596b0fd84b580d93c5db6d5e20fabfdb21b3ff9d1328d7f88955a27be615",
+      "bytes": 80678
+    },
+    "MSC05/preparation-eligible-MSC05.log": {
+      "sha256": "d0ea312f2bd395b495562b0bae035d5b7865b06cab6b105e76728fdf6e877127",
+      "bytes": 5792
+    },
+    "MSC06/failed-MSC06_func01.L-coverage.json": {
+      "sha256": "d4708b27fd008aa2845b2c208991c36bf9d97c251a083d9135b29b516b2acb26",
+      "bytes": 10337
+    },
+    "MSC06/failed-MSC06_func01.L-coverage.npz": {
+      "sha256": "0f1c94d8482733e0a760b7a431efed7d54f5f9fa059e9079b4a299c7ad55ecf8",
+      "bytes": 80441
+    },
+    "MSC06/preparation-eligible-MSC06.log": {
+      "sha256": "b0db94acd6c27269b43069c42655dacddf6beeae8c5c9099533e339dc25fbf01",
+      "bytes": 5792
+    },
+    "MSC07/failed-MSC07_func01.L-coverage.json": {
+      "sha256": "a8b3841a102dd5c797500598c73650dd916abc068fee3eeab18a07056f950cec",
+      "bytes": 7991
+    },
+    "MSC07/failed-MSC07_func01.L-coverage.npz": {
+      "sha256": "b33ebddc1ecf7ad4f5d76dce1372e1ab111dc8455f2ef3be30c3f0215cf32b3a",
+      "bytes": 80477
+    },
+    "MSC07/preparation-eligible-MSC07.log": {
+      "sha256": "fbdfa2188f90e59f1d0dd02c029b7be3cd972aaa475e0fcc3bb05ad6b5baa6d5",
+      "bytes": 4164
+    },
+    "MSC08/failed-MSC08_func01.L-coverage.json": {
+      "sha256": "f4a57db7fde7c6421a59c4f3f4d13cb8b8c1046f81eeb4463141be8aeb4d5413",
+      "bytes": 8457
+    },
+    "MSC08/failed-MSC08_func01.L-coverage.npz": {
+      "sha256": "feb33feb276683457dc3fcc2e55c15844e50af625fafacf6e1e86dadb39b2b62",
+      "bytes": 80443
+    },
+    "MSC08/preparation-eligible-MSC08.log": {
+      "sha256": "3fb4ade05bf3d3707adfd955cff402026a950f0bda77d16e5b526916987bb4bb",
+      "bytes": 4492
+    },
+    "MSC09/failed-MSC09_func01.L-coverage.json": {
+      "sha256": "52a7ed54d463ffd480d66d926e9eb9a241ea5127c8c4f7702b83107aea2ba295",
+      "bytes": 8917
+    },
+    "MSC09/failed-MSC09_func01.L-coverage.npz": {
+      "sha256": "89f8bede56fbd49042f20446d9d95311adb17daad9a8ed4e930ec9e2db9a8e7c",
+      "bytes": 80627
+    },
+    "MSC09/preparation-eligible-MSC09.log": {
+      "sha256": "8269d362d66cdc18c57322ba3df97de8590d455507dc91b95ff9d751b7c2c73a",
+      "bytes": 4816
+    },
+    "MSC10/failed-MSC10_func01.L-coverage.json": {
+      "sha256": "0d4dc6468923b194a710fe207bb8445f999865f49364542b58b274786387960d",
+      "bytes": 10340
+    },
+    "MSC10/failed-MSC10_func01.L-coverage.npz": {
+      "sha256": "75abecfc78f417d8afb0a654f942bc70a0eb3684efb7aa5e5393cb44a5256cd2",
+      "bytes": 80864
+    },
+    "MSC10/preparation-eligible-MSC10.log": {
+      "sha256": "26684ce85e3acf631b9d0884e3c90e587c2fb9e0c509936138e183f1ba81b826",
+      "bytes": 5794
+    },
+    "summary.json": {
+      "sha256": "24b58c224ca539cb5bbf513c24e1021b0bcb85719116d8f321e618fb146efa83",
+      "bytes": 10309
+    }
+  }
+}

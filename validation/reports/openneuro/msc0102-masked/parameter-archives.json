@@ -1,0 +1,181 @@
+{
+  "scope": "Lossless compressed numeric exports of the original independently executed MAT Params structures, loaded with scipy.io.loadmat(simplify_cells=True). Existing comparison was performed on the original MAT files. Singleton axes follow simplify_cells behavior.",
+  "archives": {
+    "python": {
+      "source_mat_sha256": "e183d020b745a01b8182a08e972f43e6e1f2ca1df4c6630bd33df1291d00b27f",
+      "npz_file": "python-params.npz",
+      "npz_sha256": "f5f36e1f64bdaab4391f22f261e449d3189c149f7358fbb0b477f0f83d5ed5e0",
+      "numpy_fields": {
+        "mu": {
+          "shape": [
+            1175,
+            15
+          ],
+          "dtype": "float64"
+        },
+        "epsil": {
+          "shape": [
+            15
+          ],
+          "dtype": "float64"
+        },
+        "sigma": {
+          "shape": [
+            15
+          ],
+          "dtype": "float64"
+        },
+        "kappa": {
+          "shape": [
+            15
+          ],
+          "dtype": "float64"
+        },
+        "theta": {
+          "shape": [
+            81924,
+            15
+          ],
+          "dtype": "float32"
+        },
+        "iter_inter": {
+          "shape": [],
+          "dtype": "int64"
+        },
+        "Record": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64"
+        },
+        "s_psi": {
+          "shape": [
+            1175,
+            15,
+            2
+          ],
+          "dtype": "float64"
+        },
+        "s_t_nu": {
+          "shape": [
+            1175,
+            15,
+            2,
+            2
+          ],
+          "dtype": "float64"
+        },
+        "s_lambda": {
+          "shape": [
+            81924,
+            15,
+            2
+          ],
+          "dtype": "float32"
+        },
+        "cost_em": {
+          "shape": [
+            2
+          ],
+          "dtype": "float32"
+        },
+        "cost_intra": {
+          "shape": [],
+          "dtype": "float64"
+        },
+        "cost_inter": {
+          "shape": [],
+          "dtype": "float64"
+        }
+      }
+    },
+    "reference": {
+      "source_mat_sha256": "832169d7cb1b09597cf1df3923ca0a57ddcabf0445b448bafb3b7d8038e6961d",
+      "npz_file": "reference-params.npz",
+      "npz_sha256": "04e5688ca5d7622f389512da1204a2152350d62d3bfbff725f2dca5a5d515df6",
+      "numpy_fields": {
+        "mu": {
+          "shape": [
+            1175,
+            15
+          ],
+          "dtype": "float64"
+        },
+        "epsil": {
+          "shape": [
+            15
+          ],
+          "dtype": "float64"
+        },
+        "s_psi": {
+          "shape": [
+            1175,
+            15,
+            2
+          ],
+          "dtype": "float64"
+        },
+        "sigma": {
+          "shape": [
+            15
+          ],
+          "dtype": "float64"
+        },
+        "s_t_nu": {
+          "shape": [
+            1175,
+            15,
+            2,
+            2
+          ],
+          "dtype": "float64"
+        },
+        "kappa": {
+          "shape": [
+            15
+          ],
+          "dtype": "float64"
+        },
+        "s_lambda": {
+          "shape": [
+            81924,
+            15,
+            2
+          ],
+          "dtype": "float32"
+        },
+        "theta": {
+          "shape": [
+            81924,
+            15
+          ],
+          "dtype": "float32"
+        },
+        "iter_inter": {
+          "shape": [],
+          "dtype": "float64"
+        },
+        "cost_em": {
+          "shape": [
+            2
+          ],
+          "dtype": "float32"
+        },
+        "cost_intra": {
+          "shape": [],
+          "dtype": "float64"
+        },
+        "Record": {
+          "shape": [
+            3
+          ],
+          "dtype": "float32"
+        },
+        "cost_inter": {
+          "shape": [],
+          "dtype": "float64"
+        }
+      }
+    }
+  }
+}

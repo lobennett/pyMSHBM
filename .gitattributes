@@ -2,3 +2,6 @@
 validation/upstream/** -text -whitespace
 validation/runtime/*.m -text -whitespace
 validation/fixtures/*.log -text -whitespace
+validation/reports/** -text
+validation/reports/**/*.log -whitespace
+validation/reports/**/*.m -whitespace

@@ -1,0 +1,31 @@
+{
+  "wheel": "dist/pymshbm-0.2.2-py3-none-any.whl",
+  "wheel_sha256": "2e11e833de54c9894d54f8fcf610f4e06d6667cade754ebfa9044f2365bf321e",
+  "installed_source_hashes_match": true,
+  "saved_parameter_exact": {
+    "mu": true,
+    "epsil": true,
+    "sigma": true,
+    "kappa": true,
+    "theta": true,
+    "iter_inter": true,
+    "Record": true,
+    "s_psi": true,
+    "s_t_nu": true,
+    "s_lambda": true,
+    "cost_em": true,
+    "cost_intra": true,
+    "cost_inter": true
+  },
+  "development_provenance_sha256": "f7f48a0047043aed3bbfa7962013f0fafc9ed7171b2a0c9bbcd0e8832e7c30bb",
+  "wheel_provenance_sha256": "e4f2b9bec5fd9871cc65ecb1f329415c20fcfeae8e62b4e0bdab4836e57ac070",
+  "software": {
+    "pymshbm": "0.2.2",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "nibabel": "5.4.2",
+    "python": "3.12.13"
+  },
+  "allow_zero_cortex": true,
+  "passed": true
+}

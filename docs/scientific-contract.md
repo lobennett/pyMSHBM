@@ -7,7 +7,7 @@ pins CBIG to `35b5664bec8822e2f77da5e090e96f91d0095be6` and reports that choice.
 It cannot establish which historical CBIG revision produced published Buckner
 maps without additional information from that lab.
 
-The README says pretrained priors are used without group estimation; the actual
+Buckner's README says pretrained priors are used without group estimation; the actual
 training script loads DU15NET **labels**, derives directions from average
 profiles, then estimates group parameters on the supplied participants with
 `max_iter=5`. This fork follows the executable steps. The reference script omits
@@ -21,7 +21,7 @@ posteriors explicitly. This is an output-enabling change, not an extra model fit
 | Connectivity | Pearson, one joint top-10% threshold, binary, ties retained | Fisher-Z continuous correlations |
 | Mean profile | Equal mean over available subject/run profiles | Similar averaging, different source profiles |
 | Initialization | DU15NET labels → centered unit profiles → summed network centroids | Optional k-means and centroid relabeling |
-| Data normalization | CBIG single-precision cast and literal centered-row condition | No centering |
+| Data normalization | CBIG single-precision cast, feature reduction order, and literal centered-row condition | No centering |
 | Model | Pinned CBIG nested hierarchical EM, default five outer iterations | Missing nested iteration and other numerical deviations |
 | Individual labels | Argmax of group-fit posterior; zero rows remain zero | Additional MRF fit can change maps |
 
@@ -32,8 +32,10 @@ approximation and the order used to average missing sessions). A statistically
 revised algorithm would require a separately named mode and its own validation.
 
 Python adds early input validation and a finite safeguard on loops the reference
-leaves uncapped. It rejects constant/nonfinite cortical BOLD and nonpositive
-global correlation cutoffs, rather than producing unusable maps. It checks all
+leaves uncapped. By default it rejects constant/nonfinite cortical BOLD and nonpositive
+global correlation cutoffs. The explicit `--allow-zero-cortex` opt-in permits
+only entirely zero nonseed cortical inputs; nonzero constants, nonfinite
+cortex and unusable cortical seeds remain errors. It checks all
 fitted parameters before publishing results. These rejected inputs are outside
 the supported equivalence domain. Single-subject or nearly identical sessions
 can leave variability parameters ill-conditioned; do not interpret a successful
@@ -53,7 +55,19 @@ file write as evidence of model identifiability.
 5. Retain a report with preregistered numerical tolerances and investigate
    disagreements rather than relaxing thresholds after seeing a failure.
 
-No real collaborator dataset or full upstream MATLAB run was supplied during
-development. The included executed-source fixtures establish bounded numerical
-evidence. They do not establish equivalent denoising, scientific suitability for
-a particular dataset, or replication of published participant maps.
+The [executed OpenNeuro comparisons](openneuro-validation.md) supply real-data
+evidence conditional on shared fsLR32k-to-fsaverage6 resampling and declared
+boundary imputation within 5 mm. The completed MSC01/MSC02 follow-up explicitly
+leaves one unresolved nonseed vertex zero. All four binary and normalized
+profiles are exact and both engines converge at iteration three. Directions,
+concentrations and costs pass tolerance, but spatial-prior/posterior failures
+and one label mismatch mean the complete acceptance contract **is not met**.
+The discrepancy remains on originally observed cortex as well. Its cause has
+not been established.
+
+The original complete-cortex multi-participant preparation failed its fixed
+support rule; those failures and the historical MSC01 results remain preserved.
+Installed-wheel reproduction matches the Python fit exactly but does not change
+the failed upstream comparison. No native MATLAB run has been executed. These
+results do not establish equivalent denoising, scientific suitability for a
+particular dataset, or replication of published participant maps.

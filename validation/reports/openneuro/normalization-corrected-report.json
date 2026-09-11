@@ -1,0 +1,18 @@
+{
+  "scope": "Normalization-only comparison after reduction-order correction; no EM fit",
+  "python_source_sha256": "743a794c98ebd415800f0eec7f5a733b22c3f49d130469d3f46835f99f27875b",
+  "runs": [
+    {
+      "run": 1,
+      "max_absolute_error": 0.0,
+      "mismatches": 0,
+      "reference_mat_sha256": "6578edff27c5d9e20163350ec059855cd476eb0c656daf545ff711614b0eda5f"
+    },
+    {
+      "run": 2,
+      "max_absolute_error": 0.0,
+      "mismatches": 0,
+      "reference_mat_sha256": "3f462ea094629fcf34afe388716d5e4cd1149d55610d16cbe68d5133ce84b289"
+    }
+  ]
+}

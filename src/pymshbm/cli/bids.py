@@ -29,6 +29,8 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--task", default="rest", help="BIDS task label (default: rest).")
     parser.add_argument("--dry-run", action="store_true", help="Print a JSON input manifest without reading images or writing output.")
     parser.add_argument("--max-iter", type=int, default=5, help="Maximum outer model iterations (default: 5).")
+    parser.add_argument("--allow-zero-cortex", action="store_true",
+                        help="Allow entirely zero nonseed cortical time courses; record coverage and preserve zero profiles.")
     parser.add_argument("--verbose", action="store_true", help="Log optimizer progress in detail.")
     args = parser.parse_args(argv)
     if args.max_iter < 1:
@@ -53,6 +55,7 @@ def main(argv: list[str] | None = None) -> None:
                         "output_dir": str(args.output.expanduser().resolve()),
                         "assets_dir": str(args.assets_dir.expanduser().resolve()) if args.assets_dir else None,
                         "max_iter": args.max_iter,
+                        "allow_zero_cortex": args.allow_zero_cortex,
                         "preprocessing": {"additional_denoising": False, "resampling": False},
                         "runs": records}
             print(json.dumps(manifest, indent=2))
@@ -61,7 +64,8 @@ def main(argv: list[str] | None = None) -> None:
 
         logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO,
                             format="%(levelname)s: %(message)s")
-        result = run_buckner_workflow(runs, args.output, args.assets_dir, max_iter=args.max_iter)
+        result = run_buckner_workflow(runs, args.output, args.assets_dir, max_iter=args.max_iter,
+                                      allow_zero_cortex=args.allow_zero_cortex)
         print(f"Workflow complete. Output: {result}")
     except (OSError, ValueError, RuntimeError) as exc:
         parser.error(str(exc))

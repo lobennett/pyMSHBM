@@ -1,0 +1,27 @@
+{
+  "scope": "Executed real-data reference container; captured during MSC01/MSC02 masked fit. Same OpenBLAS install used for earlier MSC01 real-data cases. Original synthetic oracle used Debian BLAS separately.",
+  "base_image": "docker.io/library/ubuntu:22.04",
+  "base_image_digest": "sha256:4f838adc7181d9039ac795a7d0aba05a9bd9ecd480d294483169c5def983b64d",
+  "container_name": "pymshbm-oracle",
+  "container_architecture": "linux/amd64",
+  "host_architecture": "arm64",
+  "emulated_on_arm_host": true,
+  "octave": "6.4.0-2",
+  "workbench": "1.5.0-2",
+  "openblas": "0.3.20+ds-1",
+  "blas_resolved_path": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3",
+  "reference_thread_environment": {
+    "OPENBLAS_NUM_THREADS": null,
+    "OMP_NUM_THREADS": null
+  },
+  "workbench_thread_override": {
+    "OMP_NUM_THREADS": "2"
+  },
+  "podman_machine_memory_GiB": 8,
+  "podman_machine_cpus": 6,
+  "packages_file": "reference-packages.tsv",
+  "packages_sha256": "c7d7244b1a8c29598505ddf133b93e69869e0f86b92d7766a1a2dc7352e0688e",
+  "container_recipe": "validation/Containerfile.real-reference",
+  "recipe_was_built_as_new_image": false,
+  "limitation": "Package inventory and principal package pins retained; apt transitive dependencies are not a hermetic snapshot. Native MATLAB was not executed."
+}

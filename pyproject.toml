@@ -1,6 +1,6 @@
 [project]
 name = "pymshbm"
-version = "0.2.0"
+version = "0.2.2"
 description = "BIDS-friendly Multi-Session Hierarchical Bayesian Model with Buckner/CBIG numerical validation"
 readme = "README.md"
 authors = [
@@ -19,6 +19,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+validation = [
+    "matplotlib>=3.8",
+]
 dev = [
     "pytest>=8",
     "pytest-cov",

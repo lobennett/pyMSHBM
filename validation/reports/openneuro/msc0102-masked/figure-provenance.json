@@ -1,0 +1,12 @@
+{
+  "plot_script_sha256": "86149c01e04f8665524fe84a8f5c3662e7d1abce4cd411d2c7b9292d917060db",
+  "matplotlib": "3.11.1",
+  "geometry": {
+    "lh.inflated": "b38f14b0b073df96a9c9daf3de41d4d8f5b32d7c7148dad36e21c44e552dcab8",
+    "rh.inflated": "733fb8110e055abb9288fdc2f98346b6ec8fbfa45ccef3a589f9b0891ae0f744"
+  },
+  "geometry_source": "FreeSurfer 8.1.0-1 fsaverage6 inflated display meshes",
+  "comparison_sha256": "fc6e1890d1af5a1fee9ade954d08ec35ca46ff823f16d34e8420c93bd1df619e",
+  "preparation_sha256": "607122c380c7a15ac0022da67469b03e7c24714301c90fedc6d25325a06e3e3b",
+  "rendering": "Orthographic depth-sorted triangles; majority network label per face; binary overlays expand to faces touching any affected vertex; statistics use exact vertices"
+}

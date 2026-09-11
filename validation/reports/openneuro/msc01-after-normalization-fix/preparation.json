@@ -1,0 +1,462 @@
+{
+  "created_utc": "2026-09-11T06:46:04.801429+00:00",
+  "dataset": "ds000224",
+  "snapshot": "1.0.4",
+  "dataset_git_revision": "727a0a4e25ec3f7bea1a20c955ea860206b31e77",
+  "cbig_git_revision": "35b5664bec8822e2f77da5e090e96f91d0095be6",
+  "selected_subjects": [
+    "MSC01"
+  ],
+  "preparation_script_sha256": "1c2a5ed8baa9c1ebc4d8d917c0905e09318cf97150700c16784465f6065edbcb",
+  "workbench": "Connectome Workbench\nType: Command Line Application\nVersion: 1.5.0\nQt Compiled Version: 5.15.2\nQt Runtime Version: 5.15.3\nCommit: unknown\nCommit Date: unknown\nCompiled with OpenMP: YES\nCompiler: c++ (/usr/bin)\nCompiler Version: 11.2.0\nCompiled Debug: NO\nOperating System: Linux\n",
+  "inputs": {
+    "cbig:data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.32k_fs_LR.surf.gii": {
+      "sha256": "31987d139b6cdf1040188d1795bf23c213c57f8e84fb45f2c04823d996b0defc",
+      "bytes": 720487
+    },
+    "cbig:data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.L.41k_fsavg_L.surf.gii": {
+      "sha256": "7fd8185a51bdae23f565b07d28150ce0100aec60c6e72fc70e740462633a3f2a",
+      "bytes": 839203
+    },
+    "openneuro:derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.L.midthickness.32k_fs_LR.surf.gii": {
+      "sha256": "684f2d365b381b06b68be3a8e6c5329533b125c515e34d7f38e734909ab116ce",
+      "bytes": 723678,
+      "annex_key": "MD5E-s723678--1bb1739428827425d0ade05b61cfd902.surf.gii"
+    },
+    "cbig:data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.32k_fs_LR.surf.gii": {
+      "sha256": "8c1f67fa8fb3024ad3b292be995d5c9bae07dc4dbdd53fbac48e511e1366553d",
+      "bytes": 707932
+    },
+    "cbig:data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.R.41k_fsavg_R.surf.gii": {
+      "sha256": "f0a093489fc2248905148c904b883302c3b806105845328fd49b96fe4e7ce658",
+      "bytes": 839204
+    },
+    "openneuro:derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.R.midthickness.32k_fs_LR.surf.gii": {
+      "sha256": "5d8f09ec3f863afa1f9817824b29418b3801f06e7aec5104c0aa7a2d8fbe8869",
+      "bytes": 711999,
+      "annex_key": "MD5E-s711999--f0a3193799bf1b0b461ce0d7e095e8ac.surf.gii"
+    },
+    "openneuro:derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func01/cifti/sub-MSC01_ses-func01_task-rest_bold_32k_fsLR.dtseries.nii": {
+      "sha256": "f5f5144fe699994f3b392e40d7a9a2811a3fc917b6d7b1ad976e6dc555cc26d5",
+      "bytes": 215994464,
+      "annex_key": "MD5E-s215994464--1d4857481513eaef4b8926ce181ea9be.nii"
+    },
+    "openneuro:derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func01/cifti/sub-MSC01_ses-func01_task-rest_bold_32k_fsLR_tmask.txt": {
+      "sha256": "bb4db50df46f6e6ceb08995c9d2150305fea4ef9500bfea2758333d0a98b932c",
+      "bytes": 1636,
+      "annex_key": "MD5E-s1636--5c33666242c7d7a7c22883d4a78eab20.txt"
+    },
+    "openneuro:derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func02/cifti/sub-MSC01_ses-func02_task-rest_bold_32k_fsLR.dtseries.nii": {
+      "sha256": "984e50af302e709cdc2720f6a47d1212af772185dbd5012f126cfee561d582f0",
+      "bytes": 215994464,
+      "annex_key": "MD5E-s215994464--6e2991ca06a6e2110f12bc4616b72617.nii"
+    },
+    "openneuro:derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func02/cifti/sub-MSC01_ses-func02_task-rest_bold_32k_fsLR_tmask.txt": {
+      "sha256": "96fa5a57bb38a24d19f5e733dfecd6015bed7e99d77a83a954cb2a92a936fe1d",
+      "bytes": 1636,
+      "annex_key": "MD5E-s1636--fdcefe783d6ce9001435ccead50f8128.txt"
+    }
+  },
+  "runs": [
+    {
+      "subject": "MSC01",
+      "session": "func01",
+      "original_cifti_shape": [
+        818,
+        65890
+      ],
+      "original_mask_frames": 818,
+      "retained_frames": 523,
+      "censor_action": "applied_supplied_mask",
+      "nominal_tr_seconds": 2.2,
+      "retained_minutes": 19.17666666666667,
+      "source": "derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func01/cifti/sub-MSC01_ses-func01_task-rest_bold_32k_fsLR.dtseries.nii",
+      "mask": "derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func01/cifti/sub-MSC01_ses-func01_task-rest_bold_32k_fsLR_tmask.txt",
+      "hemispheres": {
+        "L": {
+          "source_cortical_vertices": 29696,
+          "target_cortex_vertices": 37476,
+          "initial_missing_target_cortex": 373,
+          "imputed_seed_vertices": 7,
+          "imputed_vertices": 373,
+          "imputation_maximum_mm": 5.0,
+          "triangle_distance_refined_vertices": [],
+          "observed_maximum_distance_mm": 4.863463342189789,
+          "observed_median_distance_mm": 1.3855358511209488,
+          "missing_target_cortex": 0,
+          "constant_target_cortex": 0,
+          "coverage_sha256": "f30146d0a1087186f31fe6e3a3eb6dea6d174a5d147a1ac95a24aa306986109a",
+          "coverage_file": "sub-MSC01/ses-func01/func/sub-MSC01_ses-func01_task-rest_hemi-L_space-fsaverage6_desc-preproc_bold_coverage.npz",
+          "prepared_bold_sha256": "6a13c483b0bee2fa2ed8fb6fdf22f9b02910f6dd04a029ae4c226db7bda2b568"
+        },
+        "R": {
+          "source_cortical_vertices": 29716,
+          "target_cortex_vertices": 37471,
+          "initial_missing_target_cortex": 306,
+          "imputed_seed_vertices": 1,
+          "imputed_vertices": 306,
+          "imputation_maximum_mm": 5.0,
+          "triangle_distance_refined_vertices": [
+            4151,
+            11831,
+            18208,
+            35134
+          ],
+          "observed_maximum_distance_mm": 4.749794960021973,
+          "observed_median_distance_mm": 1.3974466025829315,
+          "missing_target_cortex": 0,
+          "constant_target_cortex": 0,
+          "coverage_sha256": "524b747dee65456b6b3455b3513c747ed11eabedee526ee6163f38254a0c193b",
+          "coverage_file": "sub-MSC01/ses-func01/func/sub-MSC01_ses-func01_task-rest_hemi-R_space-fsaverage6_desc-preproc_bold_coverage.npz",
+          "prepared_bold_sha256": "bda9ff4638784e7c3d3c0d4d9b2a1c589fe399169f52992b5c6007a70b480836"
+        }
+      }
+    },
+    {
+      "subject": "MSC01",
+      "session": "func02",
+      "original_cifti_shape": [
+        818,
+        65890
+      ],
+      "original_mask_frames": 818,
+      "retained_frames": 717,
+      "censor_action": "applied_supplied_mask",
+      "nominal_tr_seconds": 2.2,
+      "retained_minutes": 26.290000000000003,
+      "source": "derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func02/cifti/sub-MSC01_ses-func02_task-rest_bold_32k_fsLR.dtseries.nii",
+      "mask": "derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func02/cifti/sub-MSC01_ses-func02_task-rest_bold_32k_fsLR_tmask.txt",
+      "hemispheres": {
+        "L": {
+          "source_cortical_vertices": 29696,
+          "target_cortex_vertices": 37476,
+          "initial_missing_target_cortex": 373,
+          "imputed_seed_vertices": 7,
+          "imputed_vertices": 373,
+          "imputation_maximum_mm": 5.0,
+          "triangle_distance_refined_vertices": [],
+          "observed_maximum_distance_mm": 4.863463342189789,
+          "observed_median_distance_mm": 1.3855358511209488,
+          "missing_target_cortex": 0,
+          "constant_target_cortex": 0,
+          "coverage_sha256": "f30146d0a1087186f31fe6e3a3eb6dea6d174a5d147a1ac95a24aa306986109a",
+          "coverage_file": "sub-MSC01/ses-func02/func/sub-MSC01_ses-func02_task-rest_hemi-L_space-fsaverage6_desc-preproc_bold_coverage.npz",
+          "prepared_bold_sha256": "c113d7aa732334b6c05d556bb07f9a96cf7999257ec7aec0e3e2631321cd538d"
+        },
+        "R": {
+          "source_cortical_vertices": 29716,
+          "target_cortex_vertices": 37471,
+          "initial_missing_target_cortex": 306,
+          "imputed_seed_vertices": 1,
+          "imputed_vertices": 306,
+          "imputation_maximum_mm": 5.0,
+          "triangle_distance_refined_vertices": [
+            4151,
+            11831,
+            18208,
+            35134
+          ],
+          "observed_maximum_distance_mm": 4.749794960021973,
+          "observed_median_distance_mm": 1.3974466025829315,
+          "missing_target_cortex": 0,
+          "constant_target_cortex": 0,
+          "coverage_sha256": "524b747dee65456b6b3455b3513c747ed11eabedee526ee6163f38254a0c193b",
+          "coverage_file": "sub-MSC01/ses-func02/func/sub-MSC01_ses-func02_task-rest_hemi-R_space-fsaverage6_desc-preproc_bold_coverage.npz",
+          "prepared_bold_sha256": "9ce0274649ce4322a3c80f4a12bc5c964949222851db37a7c6169719735c4af6"
+        }
+      }
+    }
+  ],
+  "commands": [
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-version"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-resample",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.L.midthickness.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.L.41k_fsavg_L.surf.gii",
+      "BARYCENTRIC",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.L.midthickness.fsaverage6.surf.gii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-resample",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.R.midthickness.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.R.41k_fsavg_R.surf.gii",
+      "BARYCENTRIC",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-file-convert",
+      "-cifti-version-convert",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func01/cifti/sub-MSC01_ses-func01_task-rest_bold_32k_fsLR.dtseries.nii",
+      "2",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.dtseries.nii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-metric-resample",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.L.func.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.L.41k_fsavg_L.surf.gii",
+      "ADAP_BARY_AREA",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.L.fsaverage6.func.gii",
+      "-area-surfs",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.L.midthickness.32k_fs_LR.surf.gii",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.L.midthickness.fsaverage6.surf.gii",
+      "-current-roi",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.L.roi.shape.gii",
+      "-valid-roi-out",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.L.valid.shape.gii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-metric-resample",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.func.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.R.41k_fsavg_R.surf.gii",
+      "ADAP_BARY_AREA",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.fsaverage6.func.gii",
+      "-area-surfs",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.R.midthickness.32k_fs_LR.surf.gii",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "-current-roi",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.roi.shape.gii",
+      "-valid-roi-out",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.valid.shape.gii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "4151",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.geodesic-4151.shape.gii",
+      "-limit",
+      "5.0"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "11831",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.geodesic-11831.shape.gii",
+      "-limit",
+      "5.0"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "18208",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.geodesic-18208.shape.gii",
+      "-limit",
+      "5.0"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "35134",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func01.R.geodesic-35134.shape.gii",
+      "-limit",
+      "5.0"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-file-convert",
+      "-cifti-version-convert",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/processed_restingstate_timecourses/ses-func02/cifti/sub-MSC01_ses-func02_task-rest_bold_32k_fsLR.dtseries.nii",
+      "2",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.dtseries.nii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-metric-resample",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.L.func.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.L.41k_fsavg_L.surf.gii",
+      "ADAP_BARY_AREA",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.L.fsaverage6.func.gii",
+      "-area-surfs",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.L.midthickness.32k_fs_LR.surf.gii",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.L.midthickness.fsaverage6.surf.gii",
+      "-current-roi",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.L.roi.shape.gii",
+      "-valid-roi-out",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.L.valid.shape.gii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-metric-resample",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.func.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.32k_fs_LR.surf.gii",
+      "/work/mshbm-cbig/data/templates/surface/standard_mesh_atlases_20170508/resample_fsaverage/fsaverage6_std_sphere.R.41k_fsavg_R.surf.gii",
+      "ADAP_BARY_AREA",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.fsaverage6.func.gii",
+      "-area-surfs",
+      "/work/pyMSHBM/.local-data/openneuro/ds000224/derivatives/surface_pipeline/sub-MSC01/fs_LR_Talairach/fsaverage_LR32k/MSC01.R.midthickness.32k_fs_LR.surf.gii",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "-current-roi",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.roi.shape.gii",
+      "-valid-roi-out",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.valid.shape.gii"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "4151",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.geodesic-4151.shape.gii",
+      "-limit",
+      "5.0"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "11831",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.geodesic-11831.shape.gii",
+      "-limit",
+      "5.0"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "18208",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.geodesic-18208.shape.gii",
+      "-limit",
+      "5.0"
+    ],
+    [
+      "/opt/podman/bin/podman",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=2",
+      "pymshbm-oracle",
+      "wb_command",
+      "-surface-geodesic-distance",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01.R.midthickness.fsaverage6.surf.gii",
+      "35134",
+      "/work/pyMSHBM/.local-data/openneuro/preparation-msc01/MSC01_func02.R.geodesic-35134.shape.gii",
+      "-limit",
+      "5.0"
+    ]
+  ],
+  "resampling": "ADAP_BARY_AREA, individual midthickness surfaces, current cortical ROI",
+  "target_geometry": "Individual source midthickness resampled BARYCENTRIC on registered spheres",
+  "boundary_imputation": {
+    "method": "nearest valid target cortex by surface-edge shortest path; Workbench triangle-crawl refinement only if edge distance exceeds limit",
+    "maximum_mm": 5.0
+  },
+  "additional_denoising_filtering_smoothing": false,
+  "assets": {
+    "buckner_revision": "988ec48cf5453c6009a6f82dbddf5d5b99eda3cd",
+    "cbig_revision": "35b5664bec8822e2f77da5e090e96f91d0095be6",
+    "mesh": "fsaverage6",
+    "seed_mesh": "fsaverage3",
+    "files": {
+      "MSHBM_prior_15.mat": {
+        "source": "https://raw.githubusercontent.com/bucknerlab/PrecisionNetworkMapping/988ec48cf5453c6009a6f82dbddf5d5b99eda3cd/MSHBM/MSHBM_prior_15.mat",
+        "sha256": "16326e1367349a04ed7d81e16c855ad4fe0187af815d973e64d8d5d8ca47c4c3"
+      },
+      "ColorMap_15.txt": {
+        "source": "https://raw.githubusercontent.com/bucknerlab/PrecisionNetworkMapping/988ec48cf5453c6009a6f82dbddf5d5b99eda3cd/MSHBM/ColorMap_15.txt",
+        "sha256": "d6bdfdd7860a9f08e7d78f0b77996d80a31d59b1640814008164359fdef17d1e"
+      },
+      "lh.cortex.label": {
+        "source": "/Users/lobennett/grants/dbp/pyMSHBM/.local-data/freesurfer/fsaverage6/label/lh.cortex.label",
+        "sha256": "9e6a73805f211f2f8a0b31c1e22634c3e95c45488c792cffce8c2b0b6930b091"
+      },
+      "rh.cortex.label": {
+        "source": "/Users/lobennett/grants/dbp/pyMSHBM/.local-data/freesurfer/fsaverage6/label/rh.cortex.label",
+        "sha256": "a3b121712f4dd8dae8ed55558374667af5fe461d75a99a99313a8dbfbe4db3b7"
+      }
+    }
+  }
+}

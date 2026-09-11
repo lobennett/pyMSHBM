@@ -1,0 +1,167 @@
+{
+  "scope": "Independent real-data profile and initialization comparison",
+  "runs": [
+    {
+      "stem": "run-001",
+      "binary": {
+        "atol": 0,
+        "rtol": 0,
+        "actual_shape": [
+          81924,
+          1175
+        ],
+        "reference_shape": [
+          81924,
+          1175
+        ],
+        "actual_dtype": "uint8",
+        "reference_dtype": "uint8",
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "max_relative_error": 0.0,
+        "max_tolerance_fraction": 0.0,
+        "exact_mismatches": 0,
+        "tolerance_violations": 0,
+        "nonfinite_pairs": 0
+      },
+      "normalized": {
+        "atol": 2e-05,
+        "rtol": 0.0001,
+        "actual_shape": [
+          81924,
+          1175
+        ],
+        "reference_shape": [
+          81924,
+          1175
+        ],
+        "actual_dtype": "float32",
+        "reference_dtype": "float32",
+        "passed": true,
+        "max_absolute_error": 5.662441253662109e-06,
+        "max_relative_error": 1.561886560179134e-05,
+        "max_tolerance_fraction": 0.08122050148405541,
+        "exact_mismatches": 87178897,
+        "tolerance_violations": 0,
+        "nonfinite_pairs": 0
+      },
+      "reference_threshold": 0.21511711400117872,
+      "reference_elapsed_seconds": 22.09139919281006,
+      "reference_mat_sha256": "6578edff27c5d9e20163350ec059855cd476eb0c656daf545ff711614b0eda5f"
+    },
+    {
+      "stem": "run-002",
+      "binary": {
+        "atol": 0,
+        "rtol": 0,
+        "actual_shape": [
+          81924,
+          1175
+        ],
+        "reference_shape": [
+          81924,
+          1175
+        ],
+        "actual_dtype": "uint8",
+        "reference_dtype": "uint8",
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "max_relative_error": 0.0,
+        "max_tolerance_fraction": 0.0,
+        "exact_mismatches": 0,
+        "tolerance_violations": 0,
+        "nonfinite_pairs": 0
+      },
+      "normalized": {
+        "atol": 2e-05,
+        "rtol": 0.0001,
+        "actual_shape": [
+          81924,
+          1175
+        ],
+        "reference_shape": [
+          81924,
+          1175
+        ],
+        "actual_dtype": "float32",
+        "reference_dtype": "float32",
+        "passed": true,
+        "max_absolute_error": 6.079673767089844e-06,
+        "max_relative_error": 1.583727092147481e-05,
+        "max_tolerance_fraction": 0.08782984511248147,
+        "exact_mismatches": 87109369,
+        "tolerance_violations": 0,
+        "nonfinite_pairs": 0
+      },
+      "reference_threshold": 0.22947086592288088,
+      "reference_elapsed_seconds": 21.653381824493408,
+      "reference_mat_sha256": "3f462ea094629fcf34afe388716d5e4cd1149d55610d16cbe68d5133ce84b289"
+    }
+  ],
+  "manifest_sha256": "3559c2977b03d83023590f6d89db4cb2cf466b0c1af4701b6896e5952f7774b2",
+  "python_source_sha256": {
+    "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cerebellum/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cerebellum/cifti_convert.py": "8f38fd6e2b0d7efb6a15918bf9a2c13b5e8e8ae4cda88eeff6500ad20e7ecf81",
+    "cerebellum/params.py": "7a9715bea1feebee308a3666209e11e0624bade473de05a446fb96c14ae203fc",
+    "cerebellum/parcellation.py": "fb25d3b90cf555911428ba1c76715b5d3d8da2dcf7371182f81e2f79f284b6ea",
+    "cerebellum/surf_gifti.py": "0a349b4765dca7124a4c86667cb30e4e2717eb6110d49e5a9358685ceadc94ef",
+    "cerebellum/vol2surf_fc.py": "992c93307601cf7fe7b127f00b1e118abc8d91b21ec96b4c06dd878811af625e",
+    "cerebellum/wta.py": "0937cc19c4b04e5c444be75b2cf86f4b061ae0c7591224d5d0d49cb154bfa43e",
+    "cli/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cli/bids.py": "a923706e8d348767de4966c0a47e82befaae79b074a061756a2177bffa6051aa",
+    "cli/extract_results.py": "4f2f730b1d8b4af5391bc338fcd8486c8ccb0a0fe33e64b6f9bd0b85949959b5",
+    "cli/wrapper.py": "b834cb463837ce9677d51e4fca5fa707a2782cefb9cf52728d5813a3a02e87bc",
+    "core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "core/buckner.py": "d501e50c05fa407d6f0e6c99028a158fdace2bf8d2c685576850cb2914cdb7bc",
+    "core/extract_results.py": "3d5ed2f2bfcaef70c9afcdedca437236c6e675248bda61a2959f2c947e2c3627",
+    "core/group_priors.py": "be5cafbd711675cddd8d70981a3bd8180a870e713ed5b0a0129a81119374933c",
+    "core/individual.py": "48f5c1121385d37291fd53b326db18e225453276f73024849961f8c64ec46166",
+    "core/profiles.py": "bd20c217a4e34e3a450a80534675aa4f2a062791768f08d9c3e3f256cf7c305d",
+    "core/validation.py": "5a01de55f5262d05f6e527105b94e0ebc582363cacb0a88cb5c603fbeb93a10c",
+    "io/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "io/assets.py": "474afe59a26b02055a91b22dd65f16d6358ba49c6fd9a46ade03b0d13d09e998",
+    "io/bids.py": "59265e7faf0101f729c6369fc8b28fd7c5844c05ac491eda0d802edb02160a33",
+    "io/cifti.py": "acf8d959395f1baf3fd42a987881fd303bc950db3bcb35dc04efa63b1961de23",
+    "io/freesurfer.py": "4890c026fd9bcb0914823c4c75b48c5aea542eef6ca13849f2a4fedbfbd31f1a",
+    "io/mat_interop.py": "df379b34f03404d63b40efafeab8098528cf37e8984d4d0e8679622c3f435506",
+    "io/profile_lists.py": "e77fe4543af9a5adae8b45a397f30313da9296281c482c5932c9f39de6fe9b83",
+    "io/readers.py": "6ff2c86cac54461f3f40efb3995bbee2a9f64a6ec55bc920cd8aa7f0e4f7e84a",
+    "io/writers.py": "556975d06053d0df1479eb62d0c74300cdcbbcb8c3a00ccdb4532939ab542c23",
+    "math/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "math/clustering.py": "916f8ffcb991873974826b2dafb8a0e460f1cfb43eeb05948f0c236213b066dc",
+    "math/correlation.py": "f2550e4abee760c75c1867d0f59fb8f9efdda86531ced35d8785ae155ad05f6b",
+    "math/mrf.py": "4133f854c316debffe264c1ff6c80543a4026ad1ec7f3a1e83bc142be60e0d33",
+    "math/vmf.py": "9cac5ba7e97641ac3f2b052af6886e38a51d536c694d661ace858250f1db6dee",
+    "pipeline/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pipeline/buckner.py": "5c3314e66729989075be224cce16e44a06d0534061588561ff69bdc60231b755",
+    "pipeline/label_convert.py": "c55312669c3b6b186efb3601c55a71f2c7afe8fa11ffa491fd5c050ab173799d",
+    "pipeline/single_subject.py": "5aa2c7780dcd9791f624187d2a758311f486b3090a07ca035ed09b07dab448d8",
+    "pipeline/training.py": "131cd36a02f29822c686b517370d8c01e1548466cbbd61a44641dc5aa645dc12",
+    "pipeline/wrapper.py": "974fc48e48f67f5c18610abb8c7e663ccaef0890aa8633d9758995373a694018",
+    "types.py": "885e9edcb581ec95b20976bbd1186910c3a82acd849bd5f18baa3387fa6b8b3f"
+  },
+  "centroids": {
+    "atol": 2e-05,
+    "rtol": 0.0001,
+    "actual_shape": [
+      1175,
+      15
+    ],
+    "reference_shape": [
+      1175,
+      15
+    ],
+    "actual_dtype": "float64",
+    "reference_dtype": "float64",
+    "passed": true,
+    "max_absolute_error": 4.718447854656915e-16,
+    "max_relative_error": 1.907264087332508e-12,
+    "max_tolerance_fraction": 1.5884473461853763e-11,
+    "exact_mismatches": 17015,
+    "tolerance_violations": 0,
+    "nonfinite_pairs": 0
+  },
+  "reference_centroids_mat_sha256": "a447820d90dd346d1a0404e175ba189a204f46ef6a8e4891b5ce35f56a7b0b56",
+  "passed": true
+}

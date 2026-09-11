@@ -1,0 +1,29 @@
+{
+  "scope": "Executed CBIG float32 normalization, 16 profiles and one-row calls at D=1175",
+  "cbig_revision": "35b5664bec8822e2f77da5e090e96f91d0095be6",
+  "seed": 938411,
+  "runtime": {
+    "version": "6.4.0",
+    "computer": "x86_64-pc-linux-gnu",
+    "blas": "-lblas"
+  },
+  "source_changes": [
+    "replace MRI reader with supplied single profiles and mesh reader with supplied cortex mask; normalization body is unchanged"
+  ],
+  "commands": [
+    "python validation/generate_normalization_high_dim.py --prepare-only",
+    "octave --quiet --eval \"addpath('validation/runtime'); normalization_high_dim_oracle('validation');\"",
+    "python validation/generate_normalization_high_dim.py --collect-existing"
+  ],
+  "sha256": {
+    "upstream/CBIG_MSHBM_estimate_group_priors.m": "aa4814b1f1b43fae577a57dfe2a4106e1e34adafa6d535458b466bb7c3b629d6",
+    "runtime/normalization_high_dim_oracle.m": "d7ce19ba9add5fa56169ace5b3da36222f086e3db15cd84ae84dd81d9f926f49",
+    "fixtures/cbig_normalization_high_dim.npz": "c0379922d9054f02ac641330fc361d456157a155c474fe1e93cade058fe0d86f",
+    "fixtures/normalization_high_dim_octave.log": "4823f5c01279688c4645c79c98af186747c56d317501c8dcc1383fef546da98d",
+    "generate_normalization_high_dim.py": "6bb594e7070c096366e7051946d927b261c9a3cd6dcee67fc6e792d48b109293"
+  },
+  "execution_artifact_sha256": {
+    "fixtures/normalization_high_dim_input.mat": "d03796bbd53eef0c25c5ca806953a2ec3f48fe5c1963035b90a1960acae22bba",
+    "fixtures/normalization_high_dim_output.mat": "0dd6e5a13e7513fe8d91127c5d361ad4daba5344b429057ea560a6a70906d9d4"
+  }
+}

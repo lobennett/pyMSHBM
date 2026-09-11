@@ -1,0 +1,18 @@
+{
+  "MSC01-input-coverage.png": "e8a63aa1ea76d8f1e9ed2fb86e48925977b083b0fae1f10e1f0d9ef3a22c78c3",
+  "MSC01-network-comparison.pdf": "282efea98840b9591b40ab9636134be5668d3e5fd5e8a5fe90c12a20e5738a80",
+  "MSC01-network-comparison.png": "27e850c5d3b0597ea976331ccdd39dc5eb7fbad170d01ee30c1482319894e7a5",
+  "comparison.json": "9cfc48d514447235a73265da0cb59306380e3d5accd52e099d3daae046ef7017",
+  "figure-provenance.json": "615400a99b032fc4af87f0eff2bba93addf277bb1b3cee7e37b0a6564e389de3",
+  "kernel-octave.log": "de66550bf842c3d253af3083df2c20ec85962ac498878a147179d6d680db86e0",
+  "label-comparison.npz": "12ca62315bca034f391975cd888d5ebcb141a1ff60f4acbc64f12710f848969f",
+  "manifest.json": "3559c2977b03d83023590f6d89db4cb2cf466b0c1af4701b6896e5952f7774b2",
+  "numerical-summary.pdf": "4bc5511288216f301d0ab38f1a866b7b0718db6073f42aaf8704683ab5b85c0d",
+  "numerical-summary.png": "f62a7554fae38eceef11db7bec376e63a6260047e55756fc601f86ab2dfdfe48",
+  "parameter-archives.json": "0a4af08c069553fc7c94e8c27b619036ce99cfe89d8e8fc85439829106a5af91",
+  "preparation.json": "7523f58226c0ed6464961a0644f64ca3ae5338ed29478d6569cb1d1e27526372",
+  "profile-comparison.json": "275c05e075ab5c5f367528b30cc838da1aaa27a73f817bc5dd8bbc34048859dc",
+  "python-params.npz": "d2bc26b49783c5161faa2bba169b4c44af2592df0a5897ba1b40d9abd1c9e7e7",
+  "python-provenance.json": "894bdf0a93087bc316de4832cc93064e63459898c33c3b7bbd83190d197794b1",
+  "reference-params.npz": "4fde739356e7a8f188adc4152dd3f73dbbb3537727d950c3e2ab7df63839a9e0"
+}

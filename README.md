@@ -6,17 +6,21 @@ from [Russell Poldrack's pyMSHBM](https://github.com/poldrack/pyMSHBM) and adds 
 audited compatibility path for the executable
 [Buckner lab PrecisionNetworkMapping workflow](https://github.com/bucknerlab/PrecisionNetworkMapping).
 
-**Validation status:** the corrected optimizer is compared against executed,
-pinned CBIG MATLAB source using Octave on reproducible synthetic fixtures.
-Standard and missing-session fixtures agree on every network label and stopping
-iteration within documented continuous-parameter tolerances. This is **not yet a
-certification of whole-pipeline equivalence on real participant data in MATLAB**.
-See [reference validation](docs/reference-validation.md) and the
+**Validation status:** reproducible synthetic fixtures pass comparison with
+pinned CBIG source executed in Octave. The completed OpenNeuro MSC01/MSC02
+comparison has exact profiles and matching convergence decisions, but one
+label and spatial-prior/posterior tolerance failures mean **overall acceptance
+fails**. Shared resampling, bounded imputation and an explicit unresolved-zero
+coverage policy limit this numerical benchmark; native MATLAB equivalence
+remains untested. Earlier single-participant results and strict coverage
+failures are preserved.
+See the [real-data results and maps](docs/openneuro-validation.md),
+[reference validation](docs/reference-validation.md), and the
 [scientific contract](docs/scientific-contract.md).
 
 ## Install with uv
 
-Python 3.11 or newer:
+Python 3.11 or newer; the current package version is 0.2.2:
 
 ```bash
 uv tool install 'git+https://github.com/lobennett/pyMSHBM.git'
@@ -98,8 +102,29 @@ pymshbm bids /data/bids /data/derivatives/pymshbm \
 
 `--session-label` and `--run-label` select additional subsets. `--max-iter 5`
 is the upstream outer-iteration limit; reaching it does not establish optimizer
-convergence. An existing output directory is never overwritten. Numerical
+convergence; the output provenance distinguishes convergence from reaching the
+cap. An existing output directory is never overwritten. Inner-loop numerical
 nonconvergence or invalid data fails without publishing a completed dataset.
+
+**Complete cortical coverage is required by default.** Version 0.2.2 adds an
+explicit option for a separately declared masked-coverage analysis:
+
+```bash
+pymshbm bids /data/prepared-masked-bids /data/derivatives/pymshbm-masked \
+  --assets-dir ./mshbm-assets --participant-label MSC01 MSC02 \
+  --session-label func01 func02 --max-iter 5 --allow-zero-cortex
+```
+
+This permits only entirely zero **nonseed** cortical time courses. Nonzero
+constants, nonfinite cortical values, unusable cortical seeds, and nonpositive
+global correlation cutoffs still fail. Every cortical seed among the first
+642 vertices of each hemisphere must be usable after preparation. The package
+does not resample or impute data when this flag is set. Zero profiles remain
+literal zero observations in the source equations; they are not NaN missing
+sessions and do not provide statistically neutral missing-data handling.
+Record preparation support separately and use the
+[masked OpenNeuro protocol](docs/openneuro-reproduction.md#separate-masked-coverage-case)
+for the full preparation, comparison, and coverage-report commands.
 
 The profile tensor is stored temporarily on disk in float32. Its size is
 `81924 × number_of_cortical_seeds × subjects × maximum_runs × 4` bytes, roughly
@@ -119,14 +144,24 @@ pymshbm/
   sub-01/func/
     sub-01_space-fsaverage6_atlas-DU15NET_hemi-L_dseg.label.gii
     sub-01_space-fsaverage6_atlas-DU15NET_hemi-R_dseg.label.gii
+    sub-01_desc-mshbm_coverage.npz
     ...JSON sidecars and posterior NPZ...
 ```
 
 Labels preserve DU15NET IDs and colors (1–15; zero is medial wall/unassigned).
 Provenance contains input paths and hashes, subject/run mapping, software and
 asset versions, exact model settings, objective history and iteration-limit
-status. GIFTI derivatives use BIDS-style names; `.bidsignore` identifies the
+status. Installed Python source hashes identify the fitted implementation;
+the MAT model retains all three final objective costs. GIFTI derivatives use BIDS-style names; `.bidsignore` identifies the
 additional model and posterior artifacts. This is not a general BIDS validator.
+
+Coverage provenance records zero cortical indices per run and hemisphere.
+The subject coverage NPZ contains `cortex_mask`, `usable_session_count`,
+`usable_in_any_session`, and `full_session_coverage`, in left-then-right vertex
+order. Here **usable** means finite, nonconstant input and can include values
+imputed during external preparation. It does not mean originally observed.
+The OpenNeuro preparation keeps original support, bounded imputation, and
+unresolved-zero masks separately for reporting on each support category.
 
 ## Scientific behavior
 
@@ -157,6 +192,11 @@ no Octave installation. [Validation instructions](validation/README.md) explain
 how to regenerate the independent reference. Source checksums and measured
 per-field errors accompany the fixtures. A full-size synthetic file/pipeline
 smoke test is available in `validation/run_surface_smoke.py`.
+The [OpenNeuro reproduction instructions](docs/openneuro-reproduction.md)
+cover the executed human-data comparison. An isolated installed 0.2.1 wheel
+reproduced every saved parameter of the corrected development fit bitwise;
+the [verification report](validation/reports/openneuro/wheel-install-verification.json)
+records this packaging check separately from upstream numerical acceptance.
 
 ## Attribution
 

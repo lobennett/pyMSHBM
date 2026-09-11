@@ -1,0 +1,22 @@
+{
+  "package": "pymshbm",
+  "installed_version": "0.2.1",
+  "method": "uv tool install from built wheel, isolated directories",
+  "all_saved_parameters_bitwise_equal": true,
+  "saved_parameters": {
+    "mu": true,
+    "epsil": true,
+    "sigma": true,
+    "kappa": true,
+    "theta": true,
+    "iter_inter": true,
+    "Record": true,
+    "s_psi": true,
+    "s_t_nu": true,
+    "s_lambda": true,
+    "cost_em": true,
+    "cost_intra": true,
+    "cost_inter": true
+  },
+  "python_source_hashes_equal": true
+}

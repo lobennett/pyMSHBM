@@ -91,3 +91,26 @@ def test_manifest_model_sessions_restart_for_each_subject(tmp_path, capsys):
     runs = json.loads(capsys.readouterr().out)["runs"]
     assert [(r["subject"], r["session"], r["model_session"]) for r in runs] == [
         ("01", None, 1), ("01", "followup", 2), ("02", "followup", 1)]
+
+
+@pytest.mark.parametrize('enabled', [False, True])
+def test_cli_forwards_explicit_zero_cortex_policy(tmp_path, monkeypatch, capsys, enabled):
+    import pymshbm.pipeline.buckner as pipeline
+    root = inputs(tmp_path)
+    received = {}
+    def run(runs, output, assets, **kwargs):
+        received.update(kwargs)
+        return output
+    monkeypatch.setattr(pipeline, 'run_buckner_workflow', run)
+    flags = ['--allow-zero-cortex'] if enabled else []
+    main([str(root), str(tmp_path / 'output'), '--assets-dir', str(tmp_path / 'assets'), *flags])
+    assert received['allow_zero_cortex'] is enabled
+    capsys.readouterr()
+
+
+def test_dry_run_records_zero_cortex_opt_in_without_claiming_coverage(tmp_path, capsys):
+    root = inputs(tmp_path)
+    main([str(root), str(tmp_path / 'output'), '--dry-run', '--allow-zero-cortex'])
+    manifest = json.loads(capsys.readouterr().out)
+    assert manifest['allow_zero_cortex'] is True
+    assert 'zero_cortex_count' not in manifest['runs'][0]

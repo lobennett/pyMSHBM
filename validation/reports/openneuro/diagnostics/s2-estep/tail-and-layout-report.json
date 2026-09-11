@@ -1,0 +1,105 @@
+{
+  "reference_state": {
+    "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+    "log_c_max_absolute_error": 0.0,
+    "posterior_max_absolute_error": 2.9802322387695312e-08,
+    "posterior_tolerance_violations": 0
+  },
+  "python_state": {
+    "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+    "log_c_max_absolute_error": 0.0,
+    "posterior_max_absolute_error": 2.9802322387695312e-08,
+    "posterior_tolerance_violations": 0
+  },
+  "python_nu_reference_theta": {
+    "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+    "log_c_max_absolute_error": 0.0,
+    "posterior_max_absolute_error": 2.9802322387695312e-08,
+    "posterior_tolerance_violations": 0
+  },
+  "reference_nu_python_theta": {
+    "raw_product_source": "Exact upstream mtimesx products supplied in place of Python dot; unchanged Python E-step tail",
+    "log_c_max_absolute_error": 0.0,
+    "posterior_max_absolute_error": 2.9802322387695312e-08,
+    "posterior_tolerance_violations": 0
+  },
+  "layout_witness": {
+    "scope": "Exact production allocation/broadcast expressions with selected-row weighted-data values; layout independent of vertex count; no full M-step or fit executed",
+    "arrays": {
+      "weighted_data": {
+        "shape": [
+          1175,
+          15,
+          2,
+          2
+        ],
+        "dtype": "float32",
+        "strides": [
+          240,
+          16,
+          8,
+          4
+        ],
+        "c_contiguous": true,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      },
+      "lambda_X": {
+        "shape": [
+          1175,
+          15,
+          2,
+          2
+        ],
+        "dtype": "float32",
+        "strides": [
+          240,
+          16,
+          4,
+          8
+        ],
+        "c_contiguous": false,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      },
+      "intra_accum": {
+        "shape": [
+          1175,
+          15,
+          2
+        ],
+        "dtype": "float64",
+        "strides": [
+          240,
+          16,
+          8
+        ],
+        "c_contiguous": true,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      },
+      "inter_mu": {
+        "shape": [
+          1175,
+          15
+        ],
+        "dtype": "float64",
+        "strides": [
+          120,
+          8
+        ],
+        "c_contiguous": true,
+        "f_contiguous": false,
+        "sum_squares_vs_explicit_feature_order_max_absolute_error": 0.0
+      }
+    }
+  },
+  "artifacts_sha256": {
+    "input.mat": "362cc5cc2724e9ab29c08846bba465b820202febf03160d81ce3a38c8530d502",
+    "python.mat": "9a370b818e0121934d34abe97b9073e4c05dee1d58f39b31d15d7e24b1eac36b",
+    "octave.mat": "0203d4c9d6fa1171720e4b6fadd2d4cbd25cea9533e7076039257f83f990ab8f",
+    "octave-tail.mat": "62e2a33b044c44bbc963b5d710dcec493dd2d5415a146670c2975e06bd7749e6",
+    "s2_estep_witness.m": "805b748b9837f37568655888f5a2e33aa8c0c3b3be06905d206d161752b51b9f",
+    "s2_estep_witness_tail.m": "1c84c5564adf19a0ba5c6c756b7050122eee86f7707dc7884c309bdb51e3ef6f"
+  }
+}

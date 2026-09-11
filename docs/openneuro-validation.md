@@ -227,8 +227,29 @@ support. Of 74,947 target cortical vertices per participant, MSC01 matches
 of 74,268 vertices, MSC01 matches all and MSC02 matches 74,267. Thus the label
 disagreement occurs on originally observed cortex, not at unresolved vertex
 1659. These restricted summaries do not replace the complete acceptance test.
-No causal explanation for the remaining posterior or label differences is
-established by this result.
+The [bounded arithmetic diagnostic](../validation/reports/openneuro/diagnostics/s2-estep/diagnosis.json)
+locates the disagreement at MSC02 right-hemisphere vertex **16145** (zero-based):
+Python favors network 11 with probability 0.504394, while the reference favors
+network 10 with probability 0.502808. Both runs originally observed this vertex.
+Common observed support has Dice 1.0 for every MSC01 network and a minimum
+0.9998714 for MSC02; the original exact-label criterion still fails.
+
+A separate 51-row E-step replay supplies identical profiles and saved parameters
+to both runtimes. Native matrix products differ by at most 1.550e-6 and the
+resulting posterior by 3.161e-4. Supplying the exact upstream products to the
+unchanged Python E-step tail reduces the latter error to 2.980e-8, with no
+tolerance violations. This demonstrates an arithmetic contribution from the
+different matrix-product backends: native Python uses Apple Accelerate and
+the reference uses OpenBLAS. The inspected direction-norm reduction layouts
+match explicit sequential feature summation; no further concrete port bug was
+established in this diagnosis.
+
+This replay uses final saved parameters and a smaller matrix; it **does not
+reconstruct the original last E-step**, whose incoming spatial prior was not
+captured. It does not attribute every accumulated difference or the label
+crossing solely to BLAS. The [standalone diagnostic bundle](../validation/reports/openneuro/diagnostics/s2-estep/README.md)
+includes inputs, outputs, extracted source, licenses, runtime hashes and replay
+instructions. The complete comparison remains failed.
 
 An isolated `uv tool install` of the built **pyMSHBM 0.2.2 wheel** reproduces
 every saved development-fit parameter and installed Python source hash exactly,

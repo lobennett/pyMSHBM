@@ -1,0 +1,124 @@
+{
+  "reference_state": {
+    "raw_dot": {
+      "max_absolute_error": 1.5497207641601562e-06,
+      "unequal": 2859,
+      "tol_violations": 0
+    },
+    "posterior": {
+      "max_absolute_error": 0.0003160834312438965,
+      "unequal": 62,
+      "tol_violations": 12
+    },
+    "theta": {
+      "max_absolute_error": 0.00015807151794433594,
+      "unequal": 61,
+      "tol_violations": 1
+    },
+    "mismatch_vertex": {
+      "python": {
+        "net10": 0.999951958656311,
+        "net11": 4.801986870006658e-05,
+        "argmax": 10
+      },
+      "octave": {
+        "net10": 0.999951958656311,
+        "net11": 4.801986870006658e-05,
+        "argmax": 10
+      }
+    }
+  },
+  "python_state": {
+    "raw_dot": {
+      "max_absolute_error": 1.3709068298339844e-06,
+      "unequal": 2874,
+      "tol_violations": 0
+    },
+    "posterior": {
+      "max_absolute_error": 0.00027313828468322754,
+      "unequal": 69,
+      "tol_violations": 8
+    },
+    "theta": {
+      "max_absolute_error": 0.00013656914234161377,
+      "unequal": 63,
+      "tol_violations": 1
+    },
+    "mismatch_vertex": {
+      "python": {
+        "net10": 0.9999508857727051,
+        "net11": 4.906265530735254e-05,
+        "argmax": 10
+      },
+      "octave": {
+        "net10": 0.9999508857727051,
+        "net11": 4.906265530735254e-05,
+        "argmax": 10
+      }
+    }
+  },
+  "python_nu_reference_theta": {
+    "raw_dot": {
+      "max_absolute_error": 1.3709068298339844e-06,
+      "unequal": 2874,
+      "tol_violations": 0
+    },
+    "posterior": {
+      "max_absolute_error": 0.00027301907539367676,
+      "unequal": 67,
+      "tol_violations": 8
+    },
+    "theta": {
+      "max_absolute_error": 0.00013650953769683838,
+      "unequal": 64,
+      "tol_violations": 1
+    },
+    "mismatch_vertex": {
+      "python": {
+        "net10": 0.9999518394470215,
+        "net11": 4.813724444829859e-05,
+        "argmax": 10
+      },
+      "octave": {
+        "net10": 0.9999518394470215,
+        "net11": 4.813724444829859e-05,
+        "argmax": 10
+      }
+    }
+  },
+  "reference_nu_python_theta": {
+    "raw_dot": {
+      "max_absolute_error": 1.5497207641601562e-06,
+      "unequal": 2859,
+      "tol_violations": 0
+    },
+    "posterior": {
+      "max_absolute_error": 0.0003161132335662842,
+      "unequal": 62,
+      "tol_violations": 12
+    },
+    "theta": {
+      "max_absolute_error": 0.00015807151794433594,
+      "unequal": 58,
+      "tol_violations": 1
+    },
+    "mismatch_vertex": {
+      "python": {
+        "net10": 0.9999510049819946,
+        "net11": 4.8943027650238946e-05,
+        "argmax": 10
+      },
+      "octave": {
+        "net10": 0.9999510049819946,
+        "net11": 4.8943027650238946e-05,
+        "argmax": 10
+      }
+    }
+  },
+  "between_states_same_octave": {
+    "reference_state": 0.0,
+    "python_state": 0.0025316476821899414,
+    "python_nu_reference_theta": 0.00036323070526123047,
+    "reference_nu_python_theta": 0.002301812171936035
+  }
+}

@@ -23,6 +23,10 @@ Use `numpy.load(path, allow_pickle=False)` to inspect them. Comparisons were
 performed against the original MAT files, not reconstructed or Python-generated
 reference expectations.
 
+The [bounded E-step diagnostic](diagnostics/s2-estep/README.md) includes a
+standalone replay showing a matrix-product arithmetic contribution, with
+explicit limits on what it explains about the full failed fit.
+
 The masked case also includes the actual published label GIFTIs in `labels/`,
 original coverage masks in `input-coverage/`, per-subject usable-session counts
 in `model-coverage/`, and the separate [observed-support comparison](msc0102-masked/coverage-support.json).
